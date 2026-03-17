@@ -3,14 +3,21 @@
 
 {% block content %}
 <section class="hero">
+  <div class="hero-overlay"></div>
   <div class="hero-inner">
     <div class="hero-badge">Tabelionato de Notas &amp; Registro</div>
     <h1>Cartório <em>Porta Larga</em></h1>
-    <p>Serviços cartorários com tradição, confiança e agilidade para você e sua família. Agende seu atendimento online.</p>
-    <div class="hero-btns">
-      <a href="{% url 'novo_agendamento' %}" class="btn btn-gold">Agendar horário</a>
-      <a href="{% url 'servicos' %}" class="btn btn-outline-white">Ver serviços</a>
-    </div>
+    <a href="{% url 'servicos' %}" class="btn btn-gold">Veja nossos serviços</a>
+  </div>
+  <div class="hero-snake-left">
+    <svg viewBox="0 0 60 600" xmlns="http://www.w3.org/2000/svg">
+      <path class="snake-path-left" d="M30,0 C60,100 0,200 50,300 C80,380 10,470 30,600" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="800" stroke-dashoffset="800"/>
+    </svg>
+  </div>
+  <div class="hero-snake-right">
+    <svg viewBox="0 0 60 600" xmlns="http://www.w3.org/2000/svg">
+      <path class="snake-path-right" d="M30,0 C0,100 60,200 10,300 C-20,380 50,470 30,600" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="2" stroke-dasharray="800" stroke-dashoffset="800"/>
+    </svg>
   </div>
 </section>
 
@@ -18,7 +25,7 @@
   <div class="stat"><div class="stat-num">+30</div><div class="stat-label">Anos de atuação</div></div>
   <div class="stat"><div class="stat-num">50k+</div><div class="stat-label">Documentos emitidos</div></div>
   <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Satisfação</div></div>
-  <div class="stat"><div class="stat-num">8h–18h</div><div class="stat-label">Atendimento seg–sex</div></div>
+  <div class="stat"><div class="stat-num">8h–16h</div><div class="stat-label">Atendimento seg–sex</div></div>
 </section>
 
 <section class="section-block">

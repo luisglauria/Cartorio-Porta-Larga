@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Cartório Porta Larga — Sistema Web Django
 
 Site institucional com sistema de agendamento online, painel admin, login de clientes e API REST.
@@ -153,3 +154,7 @@ O admin (`/admin`) permite ao cartório:
 - [ ] Dashboard com gráficos para o admin
 - [ ] Deploy em produção (Heroku, Railway, VPS)
 - [ ] Trocar SQLite por PostgreSQL em produção
+=======
+# Cartorio-Porta-Larga
+Desenvolvimento web para agendamentos e informações do cartorio de Porta Larga
+>>>>>>> 0f1a75fcf23d494dcf980f5f33fed0d2fc34a757
