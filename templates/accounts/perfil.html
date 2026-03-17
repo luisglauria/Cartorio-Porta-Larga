@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% block title %}Meu Perfil — Cartório Porta Larga{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="container"><h1>Meu perfil</h1></div>
+</div>
+<section class="section-block">
+  <div class="container" style="max-width:520px">
+    <form method="post" class="form-card">
+      {% csrf_token %}
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>Nome</label>
+          <input type="text" name="first_name" value="{{ form.initial.first_name }}" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Sobrenome</label>
+          <input type="text" name="last_name" value="{{ form.initial.last_name }}" class="form-control">
+        </div>
+      </div>
+      {% for field in form %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+      </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-navy btn-block">Salvar alterações</button>
+    </form>
+    <div style="margin-top:2rem;text-align:center">
+      <a href="{% url 'meus_agendamentos' %}" class="btn btn-outline">Ver meus agendamentos</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

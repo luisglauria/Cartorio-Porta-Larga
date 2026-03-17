@@ -1,0 +1,89 @@
+{% extends "base/base.html" %}
+{% block title %}Cartório Porta Larga — Início{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Tabelionato de Notas &amp; Registro</div>
+    <h1>Cartório <em>Porta Larga</em></h1>
+    <p>Serviços cartorários com tradição, confiança e agilidade para você e sua família. Agende seu atendimento online.</p>
+    <div class="hero-btns">
+      <a href="{% url 'novo_agendamento' %}" class="btn btn-gold">Agendar horário</a>
+      <a href="{% url 'servicos' %}" class="btn btn-outline-white">Ver serviços</a>
+    </div>
+  </div>
+</section>
+
+<section class="stats-bar">
+  <div class="stat"><div class="stat-num">+30</div><div class="stat-label">Anos de atuação</div></div>
+  <div class="stat"><div class="stat-num">50k+</div><div class="stat-label">Documentos emitidos</div></div>
+  <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Satisfação</div></div>
+  <div class="stat"><div class="stat-num">8h–18h</div><div class="stat-label">Atendimento seg–sex</div></div>
+</section>
+
+<section class="section-block">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nossos serviços</h2>
+      <p>Soluções completas em serviços notariais e de registro</p>
+    </div>
+    <div class="cards-grid">
+      {% for servico in servicos %}
+      <div class="card-service">
+        <div class="card-tag">Notarial</div>
+        <h3>{{ servico.nome }}</h3>
+        <p>{{ servico.descricao|truncatewords:20 }}</p>
+        {% if servico.preco %}
+        <div class="card-price">A partir de R$ {{ servico.preco }}</div>
+        {% else %}
+        <div class="card-price">Consultar</div>
+        {% endif %}
+      </div>
+      {% empty %}
+      <p>Nenhum serviço cadastrado ainda.</p>
+      {% endfor %}
+    </div>
+    <div class="section-cta">
+      <a href="{% url 'servicos' %}" class="btn btn-navy">Ver todos os serviços</a>
+    </div>
+  </div>
+</section>
+
+<section class="section-block section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Por que nos escolher?</h2>
+    </div>
+    <div class="features-grid">
+      <div class="feature">
+        <div class="feature-icon">★</div>
+        <h3>Tradição e confiança</h3>
+        <p>Mais de 30 anos servindo a comunidade com responsabilidade e ética profissional.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Agilidade no atendimento</h3>
+        <p>Agendamento online para ser atendido sem filas e com hora marcada.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">✓</div>
+        <h3>Segurança jurídica</h3>
+        <p>Todos os atos realizados com total respaldo legal e certeza de validade.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">◎</div>
+        <h3>Equipe especializada</h3>
+        <p>Profissionais qualificados e atualizados com a legislação vigente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner">
+  <div class="container">
+    <h2>Pronto para agendar?</h2>
+    <p>Marque seu horário em segundos e seja atendido sem espera.</p>
+    <a href="{% url 'novo_agendamento' %}" class="btn btn-gold">Agendar agora</a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base/base.html" %}
+{% block title %}Cancelar Agendamento — Cartório Porta Larga{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="container"><h1>Cancelar agendamento</h1></div>
+</div>
+<section class="section-block">
+  <div class="container" style="max-width:500px">
+    <div class="confirm-card">
+      <p>Tem certeza que deseja cancelar este agendamento?</p>
+      <div class="detail-card" style="margin:1.5rem 0">
+        <div class="detail-row"><span>Serviço</span><strong>{{ agendamento.servico }}</strong></div>
+        <div class="detail-row"><span>Data</span><strong>{{ agendamento.data|date:"d/m/Y" }}</strong></div>
+        <div class="detail-row"><span>Horário</span><strong>{{ agendamento.hora|time:"H:i" }}</strong></div>
+      </div>
+      <form method="post" class="form-actions">
+        {% csrf_token %}
+        <a href="{% url 'detalhe_agendamento' agendamento.pk %}" class="btn btn-outline">Não, voltar</a>
+        <button type="submit" class="btn btn-danger">Sim, cancelar</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

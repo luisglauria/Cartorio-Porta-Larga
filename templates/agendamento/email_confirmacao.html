@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><style>
+  body{font-family:Georgia,serif;background:#F5EDD6;margin:0;padding:2rem;}
+  .card{background:#fff;max-width:520px;margin:0 auto;border-radius:4px;overflow:hidden;}
+  .header{background:#1A2744;padding:2rem;text-align:center;}
+  .header h1{color:#D4AF5A;font-size:1.3rem;margin:0;}
+  .header p{color:rgba(255,255,255,.6);font-size:.85rem;margin:.4rem 0 0;}
+  .body{padding:2rem;}
+  .greeting{font-size:1.05rem;color:#1A2744;margin-bottom:1.5rem;}
+  .detail-table{width:100%;border-collapse:collapse;margin:1.5rem 0;}
+  .detail-table td{padding:.6rem .8rem;font-size:.9rem;border-bottom:1px solid #F0E8D0;}
+  .detail-table td:first-child{color:#888;width:35%;}
+  .detail-table td:last-child{font-weight:600;color:#1A2744;}
+  .badge{display:inline-block;background:#EAF5EE;color:#1A6B3A;padding:.2rem .7rem;border-radius:12px;font-size:.8rem;}
+  .info-box{background:#F5EDD6;border-left:3px solid #B8962E;padding:1rem 1.2rem;margin:1.5rem 0;border-radius:0 4px 4px 0;font-size:.875rem;color:#555;line-height:1.7;}
+  .footer{background:#F0E8D0;padding:1.2rem 2rem;text-align:center;font-size:.8rem;color:#999;}
+</style></head>
+<body>
+<div class="card">
+  <div class="header">
+    <h1>Cartório Porta Larga</h1>
+    <p>Confirmação de agendamento</p>
+  </div>
+  <div class="body">
+    <p class="greeting">Olá, <strong>{{ usuario.first_name }}</strong>!<br>Seu agendamento foi registrado com sucesso.</p>
+    <table class="detail-table">
+      <tr><td>Serviço</td><td>{{ agendamento.servico }}</td></tr>
+      <tr><td>Data</td><td>{{ agendamento.data|date:"d/m/Y" }}</td></tr>
+      <tr><td>Horário</td><td>{{ agendamento.hora|time:"H:i" }}</td></tr>
+      <tr><td>Status</td><td><span class="badge">{{ agendamento.get_status_display }}</span></td></tr>
+    </table>
+    {% if agendamento.observacoes %}
+    <p style="font-size:.875rem;color:#555"><strong>Observações:</strong> {{ agendamento.observacoes }}</p>
+    {% endif %}
+    <div class="info-box">
+      <strong>Lembre-se:</strong><br>
+      • Chegue com 10 minutos de antecedência<br>
+      • Traga documentos originais e cópias<br>
+      • Cancele com pelo menos 2h de antecedência se não puder comparecer
+    </div>
+  </div>
+  <div class="footer">
+    Cartório Porta Larga · Rua Exemplo, 100 · Recife/PE<br>
+    (81) 3000-0000 · contato@cartorioportalarga.com.br
+  </div>
+</div>
+</body>
+</html>

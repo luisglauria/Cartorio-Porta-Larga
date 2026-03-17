@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+{% block title %}Criar conta — Cartório Porta Larga{% endblock %}
+{% block content %}
+<section class="section-block">
+  <div class="container" style="max-width:520px">
+    <div class="auth-card">
+      <h1>Criar conta</h1>
+      <p>Cadastre-se para agendar seu atendimento online</p>
+      <form method="post" class="form-card">
+        {% csrf_token %}
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+            {% for e in form.first_name.errors %}<div class="form-error">{{ e }}</div>{% endfor %}
+          </div>
+          <div class="form-group">
+            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+            {% for e in form.last_name.errors %}<div class="form-error">{{ e }}</div>{% endfor %}
+          </div>
+        </div>
+        {% for field in form %}
+          {% if field.name not in 'first_name,last_name' %}
+          <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+          </div>
+          {% endif %}
+        {% endfor %}
+        {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
+        <button type="submit" class="btn btn-navy btn-block">Criar conta</button>
+      </form>
+      <p class="auth-link">Já tem conta? <a href="{% url 'login' %}">Entrar</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "base/base.html" %}
+{% block title %}Entrar — Cartório Porta Larga{% endblock %}
+{% block content %}
+<section class="section-block">
+  <div class="container" style="max-width:440px">
+    <div class="auth-card">
+      <h1>Entrar na conta</h1>
+      <p>Acesse para gerenciar seus agendamentos</p>
+      <form method="post" class="form-card">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+        </div>
+        {% endfor %}
+        {% if form.non_field_errors %}<div class="form-error">{{ form.non_field_errors }}</div>{% endif %}
+        <button type="submit" class="btn btn-navy btn-block">Entrar</button>
+      </form>
+      <p class="auth-link">Não tem conta? <a href="{% url 'cadastro' %}">Criar conta grátis</a></p>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,24 @@
+Olá, {{ usuario.first_name }}!
+
+Seu agendamento no Cartório Porta Larga foi registrado com sucesso.
+
+DETALHES DO AGENDAMENTO
+========================
+Serviço:  {{ agendamento.servico }}
+Data:     {{ agendamento.data|date:"d/m/Y" }}
+Horário:  {{ agendamento.hora|time:"H:i" }}
+Status:   {{ agendamento.get_status_display }}
+
+{% if agendamento.observacoes %}Observações: {{ agendamento.observacoes }}{% endif %}
+
+IMPORTANTE
+- Chegue com 10 minutos de antecedência.
+- Traga documentos originais e cópias.
+- Em caso de impedimento, cancele com pelo menos 2 horas de antecedência pelo site.
+
+Endereço: Rua Exemplo, 100 — Recife/PE
+Horário:  08h00 às 18h00 (seg–sex)
+Telefone: (81) 3000-0000
+
+Atenciosamente,
+Cartório Porta Larga

@@ -1,0 +1,61 @@
+{% extends "base/base.html" %}
+{% block title %}Meus Agendamentos — Cartório Porta Larga{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Meus agendamentos</h1>
+    <p>Olá, {{ user.first_name }}! Gerencie seus horários aqui.</p>
+  </div>
+</div>
+<section class="section-block">
+  <div class="container">
+    <div class="section-top-bar">
+      <h2>Próximos agendamentos</h2>
+      <a href="{% url 'novo_agendamento' %}" class="btn btn-gold btn-sm">+ Novo agendamento</a>
+    </div>
+    {% if proximos %}
+    <div class="ag-list">
+      {% for ag in proximos %}
+      <div class="ag-card">
+        <div class="ag-card-info">
+          <div class="ag-service">{{ ag.servico }}</div>
+          <div class="ag-datetime">📅 {{ ag.data|date:"d/m/Y" }} às {{ ag.hora|time:"H:i" }}</div>
+          {% if ag.observacoes %}<div class="ag-obs">{{ ag.observacoes|truncatewords:15 }}</div>{% endif %}
+        </div>
+        <div class="ag-card-actions">
+          <span class="badge badge-{{ ag.status }}">{{ ag.get_status_display }}</span>
+          <a href="{% url 'detalhe_agendamento' ag.pk %}" class="btn btn-sm btn-outline">Ver</a>
+          {% if ag.pode_cancelar %}
+          <a href="{% url 'cancelar_agendamento' ag.pk %}" class="btn btn-sm btn-danger-outline">Cancelar</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <p>Você não tem agendamentos futuros.</p>
+      <a href="{% url 'novo_agendamento' %}" class="btn btn-navy">Agendar agora</a>
+    </div>
+    {% endif %}
+
+    {% if historico %}
+    <h2 style="margin-top:3rem;margin-bottom:1rem">Histórico</h2>
+    <div class="ag-list">
+      {% for ag in historico %}
+      <div class="ag-card ag-card-history">
+        <div class="ag-card-info">
+          <div class="ag-service">{{ ag.servico }}</div>
+          <div class="ag-datetime">{{ ag.data|date:"d/m/Y" }} às {{ ag.hora|time:"H:i" }}</div>
+        </div>
+        <div class="ag-card-actions">
+          <span class="badge badge-{{ ag.status }}">{{ ag.get_status_display }}</span>
+          <a href="{% url 'detalhe_agendamento' ag.pk %}" class="btn btn-sm btn-outline">Ver</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

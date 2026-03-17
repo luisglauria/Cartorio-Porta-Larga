@@ -1,0 +1,27 @@
+{% extends "base/base.html" %}
+{% block title %}Agendamento #{{ agendamento.pk }} — Cartório Porta Larga{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="container"><h1>Detalhes do agendamento</h1></div>
+</div>
+<section class="section-block">
+  <div class="container" style="max-width:560px">
+    <div class="detail-card">
+      <div class="detail-row"><span>Serviço</span><strong>{{ agendamento.servico }}</strong></div>
+      <div class="detail-row"><span>Data</span><strong>{{ agendamento.data|date:"d/m/Y" }}</strong></div>
+      <div class="detail-row"><span>Horário</span><strong>{{ agendamento.hora|time:"H:i" }}</strong></div>
+      <div class="detail-row"><span>Status</span><span class="badge badge-{{ agendamento.status }}">{{ agendamento.get_status_display }}</span></div>
+      {% if agendamento.observacoes %}
+      <div class="detail-row"><span>Observações</span><span>{{ agendamento.observacoes }}</span></div>
+      {% endif %}
+      <div class="detail-row"><span>Agendado em</span><span>{{ agendamento.criado_em|date:"d/m/Y H:i" }}</span></div>
+    </div>
+    <div class="form-actions">
+      <a href="{% url 'meus_agendamentos' %}" class="btn btn-outline">← Voltar</a>
+      {% if agendamento.pode_cancelar %}
+      <a href="{% url 'cancelar_agendamento' agendamento.pk %}" class="btn btn-danger-outline">Cancelar agendamento</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

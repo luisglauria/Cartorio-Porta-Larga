@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Cartório Porta Larga{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-inner">
+    <a href="{% url 'home' %}" class="nav-logo">
+      Cartório Porta Larga
+      <span>Tabelionato de Notas</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="{% url 'home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>Início</a></li>
+      <li><a href="{% url 'sobre' %}" {% if request.resolver_match.url_name == 'sobre' %}class="active"{% endif %}>Sobre</a></li>
+      <li><a href="{% url 'servicos' %}" {% if request.resolver_match.url_name == 'servicos' %}class="active"{% endif %}>Serviços</a></li>
+      <li><a href="{% url 'institucional' %}" {% if request.resolver_match.url_name == 'institucional' %}class="active"{% endif %}>Institucional</a></li>
+      <li><a href="{% url 'contato' %}" {% if request.resolver_match.url_name == 'contato' %}class="active"{% endif %}>Contato</a></li>
+      {% if user.is_authenticated %}
+      <li><a href="{% url 'meus_agendamentos' %}">Meus agendamentos</a></li>
+      <li class="nav-user">
+        <span>{{ user.first_name }}</span>
+        <a href="{% url 'logout' %}" class="nav-logout">Sair</a>
+      </li>
+      {% endif %}
+    </ul>
+    <a href="{% url 'novo_agendamento' %}" class="nav-cta">Agendar horário</a>
+  </div>
+</nav>
+
+{% if messages %}
+<div class="messages-bar">
+  {% for message in messages %}
+  <div class="message message-{{ message.tags }}">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <div class="footer-logo">Cartório Porta Larga</div>
+      <p>Tabelionato de Notas e Registro.<br>Segurança jurídica com tradição e confiança.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navegação</h4>
+      <ul>
+        <li><a href="{% url 'sobre' %}">Sobre</a></li>
+        <li><a href="{% url 'servicos' %}">Serviços</a></li>
+        <li><a href="{% url 'institucional' %}">Institucional</a></li>
+        <li><a href="{% url 'contato' %}">Contato</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Horário de atendimento</h4>
+      <p>Segunda a sexta-feira<br>08h00 às 18h00<br><br>Sábados, domingos e feriados: fechado</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <p>Rua Exemplo, 100<br>Recife — PE, 50000-000<br><br>(81) 3000-0000<br>contato@cartorioportalarga.com.br</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; {% now "Y" %} Cartório Porta Larga. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
