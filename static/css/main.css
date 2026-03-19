@@ -34,10 +34,11 @@ a:hover { color: #1A2744; }
 
 /* ── Navbar ───────────────────────────────────────────── */
 .navbar { background: var(--navy); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,.06); }
-.nav-inner { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; height: 100px; display: flex; align-items: center; gap: 2rem; }
-.nav-logo { font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1.1rem; font-weight: 700; letter-spacing: .02em; flex-shrink: 0; display: flex; align-items: center; gap: .75rem; }
-.nav-logo span { display: block; color: rgba(255,255,255,.45); font-family: 'DM Sans', sans-serif; font-size: .7rem; font-weight: 300; letter-spacing: .14em; text-transform: uppercase; margin-top: -3px; }
+.nav-inner { width: 100%; padding: 0 1.5rem; height: 120px; display: flex; align-items: center; gap: 2rem; }
+.nav-logo { display: flex; align-items: center; gap: .75rem; }
 .nav-logo-img { height: 90px; width: auto; }
+.nav-logo-text { display: flex; flex-direction: column; font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1.1rem; font-weight: 700; letter-spacing: .02em; }
+.nav-logo-text span { display: block; color: rgba(255,255,255,.45); font-family: 'DM Sans', sans-serif; font-size: .7rem; font-weight: 300; letter-spacing: .14em; text-transform: uppercase; margin-top: 2px; }
 .nav-links { display: flex; gap: 1.5rem; list-style: none; margin-left: auto; }
 .nav-links a { color: rgba(255,255,255,.7); font-size: .82rem; letter-spacing: .07em; text-transform: uppercase; font-weight: 400; padding: .25rem 0; border-bottom: 1px solid transparent; transition: all .2s; }
 .nav-links a:hover, .nav-links a.active { color: var(--gold-light); border-color: var(--gold-light); }
@@ -46,7 +47,7 @@ a:hover { color: #1A2744; }
 .nav-logout { color: rgba(255,255,255,.5) !important; font-size: .75rem !important; }
 .nav-cta { background: var(--gold); color: var(--navy); font-size: .78rem; font-weight: 500; padding: .45rem 1.1rem; border-radius: 3px; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; border: none; cursor: pointer; transition: background .2s; }
 .nav-cta:hover { background: var(--gold-light); color: var(--navy); }
-.nav-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.3rem; cursor: pointer; margin-left: auto; }
+.nav-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
 
 /* ── Messages ─────────────────────────────────────────── */
 .messages-bar { max-width: 1140px; margin: 1rem auto; padding: 0 1.5rem; }
