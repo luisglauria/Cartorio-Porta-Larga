@@ -26,7 +26,7 @@ a:hover { color: #1A2744; }
 }
 
 /* ── Topbar ───────────────────────────────────────────── */
-.topbar { background: var(--gold-pale); border-bottom: 1px solid #E5D499; padding: .45rem 1.5rem; }
+.topbar { background: var(--gold-pale); border-bottom: 1px solid #ffffff; padding: .45rem 1.5rem; }
 .topbar-inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
 .topbar-left span, .topbar-right span { font-size: .78rem; color: var(--gray-700); }
 .topbar-right { display: flex; gap: 1.5rem; }
@@ -34,9 +34,10 @@ a:hover { color: #1A2744; }
 
 /* ── Navbar ───────────────────────────────────────────── */
 .navbar { background: var(--navy); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,.06); }
-.nav-inner { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; height: 64px; display: flex; align-items: center; gap: 2rem; }
-.nav-logo { font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1.1rem; font-weight: 700; letter-spacing: .02em; flex-shrink: 0; }
+.nav-inner { max-width: 1140px; margin: 0 auto; padding: 0 1.5rem; height: 100px; display: flex; align-items: center; gap: 2rem; }
+.nav-logo { font-family: 'Playfair Display', serif; color: var(--gold-light); font-size: 1.1rem; font-weight: 700; letter-spacing: .02em; flex-shrink: 0; display: flex; align-items: center; gap: .75rem; }
 .nav-logo span { display: block; color: rgba(255,255,255,.45); font-family: 'DM Sans', sans-serif; font-size: .7rem; font-weight: 300; letter-spacing: .14em; text-transform: uppercase; margin-top: -3px; }
+.nav-logo-img { height: 90px; width: auto; }
 .nav-links { display: flex; gap: 1.5rem; list-style: none; margin-left: auto; }
 .nav-links a { color: rgba(255,255,255,.7); font-size: .82rem; letter-spacing: .07em; text-transform: uppercase; font-weight: 400; padding: .25rem 0; border-bottom: 1px solid transparent; transition: all .2s; }
 .nav-links a:hover, .nav-links a.active { color: var(--gold-light); border-color: var(--gold-light); }
