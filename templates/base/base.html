@@ -29,10 +29,10 @@
 <nav class="navbar">
   <div class="nav-inner">
     <a href="{% url 'home' %}" class="nav-logo">
-      <img src="{% static 'img/logo-porta-larga.png' %}" alt="Logo Cartório Porta Larga" class="nav-logo-img">
+      <img src="{% static 'img/logo.png' %}" alt="Logo Cartório Porta Larga" class="nav-logo-img">
       <div class="nav-logo-text">
         Cartório Porta Larga
-        <span>Registro civil 1º Distrito</span>
+        <span>Registro Civil 1º Distrito</span>
       </div>
     </a>
     <button class="nav-toggle" id="navToggle" aria-label="Menu">&#9776;</button>
@@ -44,12 +44,22 @@
       <li><a href="{% url 'contato' %}" {% if request.resolver_match.url_name == 'contato' %}class="active"{% endif %}>Contato</a></li>
       {% if user.is_authenticated %}
       <li><a href="{% url 'meus_agendamentos' %}">Meus agendamentos</a></li>
-      <li class="nav-user">
-        <span>{{ user.first_name }}</span>
-        <a href="{% url 'logout' %}" class="nav-logout">Sair</a>
-      </li>
       {% endif %}
     </ul>
+
+    {% if user.is_authenticated %}
+    <div class="nav-user-menu">
+      <div class="nav-user-icon">{{ user.first_name|first }}{{ user.last_name|first }}</div>
+      <div class="nav-user-dropdown">
+        <div class="nav-user-dropdown-inner">
+          <span>{{ user.get_full_name }}</span>
+          <a href="{% url 'perfil' %}">Meu perfil</a>
+          <a href="{% url 'logout' %}">Sair</a>
+       </div>
+      </div>
+    </div>
+    {% endif %}
+
     <a href="{% url 'novo_agendamento' %}" class="nav-cta">Agendar horário</a>
   </div>
 </nav>
@@ -70,7 +80,7 @@
   <div class="footer-inner">
     <div class="footer-col">
       <div class="footer-logo">Cartório Porta Larga</div>
-      <p>Tabelionato de Notas e Registro.<br>Segurança jurídica com tradição e confiança.</p>
+      <p>Registro Civil 1º Distrito<br>Segurança jurídica com tradição e confiança.</p>
     </div>
     <div class="footer-col">
       <h4>Navegação</h4>
