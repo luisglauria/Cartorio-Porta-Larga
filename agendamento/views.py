@@ -35,6 +35,15 @@ def contato(request):
 
 @login_required
 def novo_agendamento(request):
+    servico_id = request.GET.get('servico')
+    servico_selecionado = None
+    if servico_id:
+        from .models import Servico
+        try:
+            servico_selecionado = Servico.objects.get(pk=servico_id, ativo=True)
+        except Servico.DoesNotExist:
+            pass
+
     if request.method == 'POST':
         form = AgendamentoForm(request.POST)
         if form.is_valid():
@@ -48,8 +57,15 @@ def novo_agendamento(request):
             messages.success(request, 'Agendamento realizado com sucesso! Você receberá um e-mail de confirmação.')
             return redirect('meus_agendamentos')
     else:
-        form = AgendamentoForm()
-    return render(request, 'agendamento/novo.html', {'form': form})
+        initial = {}
+        if servico_selecionado:
+            initial['servico'] = servico_selecionado
+        form = AgendamentoForm(initial=initial)
+
+    return render(request, 'agendamento/novo.html', {
+        'form': form,
+        'servico_selecionado': servico_selecionado,
+    })
 
 
 @login_required

@@ -5,7 +5,7 @@
   <div class="container"><h1>Novo agendamento</h1><p>Preencha os dados para marcar seu horário</p></div>
 </div>
 <section class="section-block">
-  <div class="container" style="max-width:620px">
+  <div class="container" style="max-width:680px">
     {% if not user.is_authenticated %}
     <div class="alert alert-info">
       <strong>Para agendar, faça login ou crie sua conta.</strong><br>
@@ -13,22 +13,60 @@
       <a href="{% url 'cadastro' %}">Criar conta grátis</a>
     </div>
     {% else %}
-    <form method="post" class="form-card">
-      {% csrf_token %}
-      {% for field in form %}
-      <div class="form-group">
-        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-        {{ field }}
-        {% if field.help_text %}<div class="form-help">{{ field.help_text }}</div>{% endif %}
-        {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+
+    {% if servico_selecionado %}
+    <div class="servico-info-box" id="servicoInfoBox">
+      <div class="servico-info-header">
+        <h3>📋 Informações sobre o serviço</h3>
+        <span class="servico-info-nome">{{ servico_selecionado.nome }}</span>
       </div>
-      {% endfor %}
-      {% if form.non_field_errors %}
-      <div class="form-error">{{ form.non_field_errors }}</div>
-      {% endif %}
-      <button type="submit" class="btn btn-navy btn-block">Confirmar agendamento</button>
-    </form>
+      <div class="servico-info-body">
+        {{ servico_selecionado.descricao|linebreaks }}
+      </div>
+      <div class="servico-info-confirm">
+        <label class="confirm-label">
+          <input type="checkbox" id="confirmLeitura" onchange="toggleForm()">
+          <span>Li e compreendi todas as informações acima</span>
+        </label>
+      </div>
+    </div>
+
+    <div id="formAgendamento" style="display:none; margin-top:2rem;">
+    {% else %}
+    <div id="formAgendamento">
+    {% endif %}
+
+      <form method="post" class="form-card">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<div class="form-help">{{ field.help_text }}</div>{% endif %}
+          {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+        </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <button type="submit" class="btn btn-navy btn-block">Confirmar agendamento</button>
+      </form>
+
+    </div>
     {% endif %}
   </div>
 </section>
+
+<script>
+function toggleForm() {
+  const checkbox = document.getElementById('confirmLeitura');
+  const form = document.getElementById('formAgendamento');
+  if (checkbox.checked) {
+    form.style.display = 'block';
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    form.style.display = 'none';
+  }
+}
+</script>
 {% endblock %}

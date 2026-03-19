@@ -14,19 +14,18 @@
       <div class="card-service">
         <div class="card-tag">Notarial</div>
         <h3>{{ servico.nome }}</h3>
-        <p>{{ servico.descricao }}</p>
         <div class="card-meta">
           <span>⏱ {{ servico.duracao_minutos }} min</span>
           {% if servico.preco %}
           <span class="card-price">R$ {{ servico.preco }}</span>
           {% else %}
-          <span class="card-price">Consultar</span>
+          <span class="card-price">Gratuito</span>
           {% endif %}
         </div>
-        <a href="{% url 'novo_agendamento' %}" class="btn btn-sm btn-navy">Agendar</a>
+        <a href="{% url 'novo_agendamento' %}?servico={{ servico.pk }}" class="btn btn-sm btn-navy">Agendar</a>
       </div>
       {% empty %}
-      <p>Nenhum serviço cadastrado ainda. Entre em contato para mais informações.</p>
+      <p>Nenhum serviço cadastrado ainda.</p>
       {% endfor %}
     </div>
   </div>
