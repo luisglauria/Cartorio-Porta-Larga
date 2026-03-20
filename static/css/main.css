@@ -288,6 +288,11 @@ a:hover { color: #1A2744; }
 .modelo-info h3 { font-size: 1rem; font-weight: 500; color: var(--navy); margin-bottom: .3rem; }
 .modelo-info p { font-size: .85rem; color: var(--gray-500); line-height: 1.6; }
 
+/* ── Transparência ────────────────────────────────────── */
+.transp-aviso { background: #FFF4E0; border-left: 3px solid #F59E0B; border-radius: var(--radius); padding: 1rem 1.25rem; display: flex; gap: 1rem; align-items: flex-start; margin-top: 1.5rem; }
+.transp-aviso span { font-size: 1.2rem; flex-shrink: 0; }
+.transp-aviso p { font-size: .9rem; color: #B36A00; line-height: 1.6; }
+
 /* ── Timeline ─────────────────────────────────────────── */
 .timeline { position: relative; padding-left: 2rem; }
 .timeline::before { content: ''; position: absolute; left: .4rem; top: 0; bottom: 0; width: 1px; background: var(--gray-300); }

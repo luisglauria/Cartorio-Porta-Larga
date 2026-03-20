@@ -19,4 +19,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
     path('modelos-de-requerimentos/', ag_views.modelos_requerimentos, name='modelos_requerimentos'),
+    path('sites-uteis/', ag_views.sites_uteis, name='sites_uteis'),
+    path('transparencia/', ag_views.transparencia, name='transparencia'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

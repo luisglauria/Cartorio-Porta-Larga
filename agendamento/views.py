@@ -38,6 +38,11 @@ def retificacao(request):
 def modelos_requerimentos(request):
     return render(request, 'base/modelos_requerimentos.html')
 
+def sites_uteis(request):
+    return render(request, 'base/sites_uteis.html')
+
+def transparencia(request):
+    return render(request, 'base/transparencia.html')
 
 # ── Agendamento ───────────────────────────────────────────────────────────────
 
