@@ -40,7 +40,18 @@
       <li><a href="{% url 'home' %}" {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}>Início</a></li>
       <li><a href="{% url 'sobre' %}" {% if request.resolver_match.url_name == 'sobre' %}class="active"{% endif %}>Sobre</a></li>
       <li><a href="{% url 'servicos' %}" {% if request.resolver_match.url_name == 'servicos' %}class="active"{% endif %}>Serviços</a></li>
-      <li><a href="{% url 'institucional' %}" {% if request.resolver_match.url_name == 'institucional' %}class="active"{% endif %}>Institucional</a></li>
+      <li class="nav-dropdown">
+        <a href="{% url 'institucional' %}" {% if request.resolver_match.url_name == 'institucional' %}class="active"{% endif %}>Institucional ▾</a>
+        <ul class="nav-dropdown-menu">
+          <div class="nav-dropdown-menu-inner">
+            <li><a href="{% url 'institucional' %}">Sobre</a></li>
+            <li><a href="#">Modelos de Requerimentos</a></li>
+            <li><a href="#">Sites Úteis</a></li>
+            <li><a href="#">Transparência</a></li>
+            <li><a href="#">Política de Privacidade</a></li>
+          </div>
+        </ul>
+      </li>
       <li><a href="{% url 'contato' %}" {% if request.resolver_match.url_name == 'contato' %}class="active"{% endif %}>Contato</a></li>
       {% if user.is_authenticated %}
       <li><a href="{% url 'meus_agendamentos' %}">Meus agendamentos</a></li>
@@ -55,7 +66,7 @@
           <span>{{ user.get_full_name }}</span>
           <a href="{% url 'perfil' %}">Meu perfil</a>
           <a href="{% url 'logout' %}">Sair</a>
-       </div>
+        </div>
       </div>
     </div>
     {% endif %}

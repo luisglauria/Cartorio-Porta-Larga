@@ -10,6 +10,7 @@ class Servico(models.Model):
     preco = models.DecimalField('Preço (R$)', max_digits=8, decimal_places=2, null=True, blank=True)
     ativo = models.BooleanField('Ativo', default=True)
     ordem = models.PositiveIntegerField('Ordem de exibição', default=0)
+    resumo = models.CharField('Resumo (exibido no card)', max_length=200, blank=True)
 
     class Meta:
         verbose_name = 'Serviço'
@@ -18,6 +19,7 @@ class Servico(models.Model):
 
     def __str__(self):
         return self.nome
+    
 
 
 class HorarioDisponivel(models.Model):

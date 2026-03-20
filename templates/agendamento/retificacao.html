@@ -1,0 +1,26 @@
+{% extends "base/base.html" %}
+{% block title %}Retificações — Cartório Porta Larga{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Retificações</h1>
+    <p>Selecione o tipo de retificação que deseja solicitar</p>
+  </div>
+</div>
+<section class="section-block">
+  <div class="container" style="max-width:800px">
+    <div class="retif-grid">
+      {% for servico in servicos %}
+      <a href="{% url 'novo_agendamento' %}?servico={{ servico.pk }}" class="retif-card">
+        <div class="retif-num">{{ forloop.counter|stringformat:"02d" }}</div>
+        <div class="retif-info">
+          <h3>{{ servico.nome|cut:"Retificação — " }}</h3>
+          <p>{{ servico.resumo }}</p>
+        </div>
+        <div class="retif-arrow">→</div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

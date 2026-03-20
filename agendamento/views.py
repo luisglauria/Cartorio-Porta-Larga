@@ -19,7 +19,7 @@ def sobre(request):
 
 
 def servicos(request):
-    servicos = Servico.objects.filter(ativo=True)
+    servicos = Servico.objects.filter(ativo=True).exclude(nome__icontains='retificação — ')
     return render(request, 'base/servicos.html', {'servicos': servicos})
 
 
@@ -29,6 +29,11 @@ def institucional(request):
 
 def contato(request):
     return render(request, 'base/contato.html')
+
+def retificacao(request):
+    from .models import Servico
+    servicos = Servico.objects.filter(nome__icontains='retificação', ativo=False).order_by('ordem')
+    return render(request, 'agendamento/retificacao.html', {'servicos': servicos})
 
 
 # ── Agendamento ───────────────────────────────────────────────────────────────

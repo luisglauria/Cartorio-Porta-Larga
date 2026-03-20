@@ -32,9 +32,45 @@
     </div>
 
     <div id="formAgendamento" style="display:none; margin-top:2rem;">
-    {% else %}
-    <div id="formAgendamento">
-    {% endif %}
+
+      {% if "casamento" in servico_selecionado.nome|lower or "união estável" in servico_selecionado.nome|lower %}
+      <div class="passos-card">
+        <div class="passos-header">
+          <h3>{{ servico_selecionado.nome }}</h3>
+          <p>Por onde começo?</p>
+        </div>
+        <div class="passos-list">
+          <div class="passo-item">
+            <div class="passo-num">01</div>
+            <div class="passo-text">Ter em mãos toda a documentação necessária para agendar o dia de comparecer ao cartório para dar entrada no processo de <strong>HABILITAÇÃO DE CASAMENTO</strong>.</div>
+          </div>
+          <div class="passo-item">
+            <div class="passo-num">02</div>
+            <div class="passo-text">Agendar conosco o dia para comparecer ao Cartório, junto com as 2 testemunhas.</div>
+          </div>
+          <div class="passo-item">
+            <div class="passo-num">03</div>
+            <div class="passo-text">No dia agendado, o casal deve comparecer ao Cartório, trazendo consigo toda a documentação exigida. Daremos início ao processo de Habilitação de Casamento Civil e agendaremos a data para o retorno, a fim de retirar a Certidão de Habilitação, em até 7 dias corridos.</div>
+          </div>
+          <div class="passo-item">
+            <div class="passo-num">04</div>
+            <div class="passo-text">Um dos nubentes deverá comparecer ao Cartório, no dia agendado, para retirar a Certidão de Habilitação, que será entregue à Igreja Celebrante.</div>
+          </div>
+          <div class="passo-item">
+            <div class="passo-num">05</div>
+            <div class="passo-text">Celebração da Cerimônia Religiosa. Nesse momento será entregue ao casal, pela Igreja Celebrante, o <strong>TERMO DE CASAMENTO RELIGIOSO</strong>, onde ambos assinarão juntamente com as testemunhas e Celebrante.</div>
+          </div>
+          <div class="passo-item">
+            <div class="passo-num">06</div>
+            <div class="passo-text">Dentro de um período de até 60 dias corridos após a realização da Cerimônia Religiosa, um dos nubentes deverá comparecer ao Cartório, trazendo consigo o <strong>TERMO DE CASAMENTO RELIGIOSO</strong>.</div>
+          </div>
+          <div class="passo-item">
+            <div class="passo-num">07</div>
+            <div class="passo-text">Emissão da Certidão de Casamento.</div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
 
       <form method="post" class="form-card">
         {% csrf_token %}
@@ -53,7 +89,28 @@
       </form>
 
     </div>
+
+    {% else %}
+    <div id="formAgendamento">
+      <form method="post" class="form-card">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-group">
+          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+          {{ field }}
+          {% if field.help_text %}<div class="form-help">{{ field.help_text }}</div>{% endif %}
+          {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+        </div>
+        {% endfor %}
+        {% if form.non_field_errors %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% endif %}
+        <button type="submit" class="btn btn-navy btn-block">Confirmar agendamento</button>
+      </form>
+    </div>
     {% endif %}
+
+  {% endif %}
   </div>
 </section>
 
