@@ -62,11 +62,6 @@ def servicos(request):
     servicos = Servico.objects.filter(ativo=True).exclude(nome__icontains='retificação — ')
     return render(request, 'base/servicos.html', {'servicos': servicos})
 
-
-def institucional(request):
-    return render(request, 'base/institucional.html')
-
-
 def contato(request):
     return render(request, 'base/contato.html')
 

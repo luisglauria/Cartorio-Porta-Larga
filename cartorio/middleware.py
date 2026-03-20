@@ -1,6 +1,13 @@
 from django.shortcuts import redirect
 
-ROTAS_LIVRES = ['/verificacao/', '/static/', '/media/', '/admin/']
+ROTAS_LIVRES = [
+    '/verificacao/',
+    '/static/',
+    '/media/',
+    '/admin/',
+    '/favicon.ico',
+    '/accounts/',
+]
 
 class VerificacaoMiddleware:
     def __init__(self, get_response):

@@ -68,7 +68,7 @@
       <li><a href="{% url 'sobre' %}" {% if request.resolver_match.url_name == 'sobre' %}class="active"{% endif %}>Sobre</a></li>
       <li><a href="{% url 'servicos' %}" {% if request.resolver_match.url_name == 'servicos' %}class="active"{% endif %}>Serviços</a></li>
       <li class="nav-dropdown">
-        <a href="{% url 'institucional' %}" {% if request.resolver_match.url_name == 'institucional' %}class="active"{% endif %}>Institucional ▾</a>
+        <a href="#" {% if request.resolver_match.url_name == 'institucional' %}class="active"{% endif %}>Institucional ▾</a>
         <ul class="nav-dropdown-menu">
           <div class="nav-dropdown-menu-inner">
             <li><a href="{% url 'modelos_requerimentos' %}">Modelos de Requerimentos</a></li>
@@ -124,7 +124,6 @@
       <ul>
         <li><a href="{% url 'sobre' %}">Sobre</a></li>
         <li><a href="{% url 'servicos' %}">Serviços</a></li>
-        <li><a href="{% url 'institucional' %}">Institucional</a></li>
         <li><a href="{% url 'contato' %}">Contato</a></li>
       </ul>
     </div>

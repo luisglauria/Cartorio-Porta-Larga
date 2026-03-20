@@ -12,7 +12,6 @@ urlpatterns = [
     path('', ag_views.home, name='home'),
     path('sobre/', ag_views.sobre, name='sobre'),
     path('servicos/', ag_views.servicos, name='servicos'),
-    path('institucional/', ag_views.institucional, name='institucional'),
     path('contato/', ag_views.contato, name='contato'),
     path('agendamento/', include('agendamento.urls')),
     path('accounts/', include('accounts.urls')),
