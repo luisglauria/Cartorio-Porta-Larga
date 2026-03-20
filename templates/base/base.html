@@ -44,11 +44,10 @@
         <a href="{% url 'institucional' %}" {% if request.resolver_match.url_name == 'institucional' %}class="active"{% endif %}>Institucional ▾</a>
         <ul class="nav-dropdown-menu">
           <div class="nav-dropdown-menu-inner">
-            <li><a href="{% url 'institucional' %}">Sobre</a></li>
             <li><a href="{% url 'modelos_requerimentos' %}">Modelos de Requerimentos</a></li>
             <li><a href="{% url 'sites_uteis' %}">Sites Úteis</a></li>
             <li><a href="{% url 'transparencia' %}">Transparência</a></li>
-            <li><a href="#">Política de Privacidade</a></li>
+            <li><a href="{% url 'politica_privacidade' %}">Política de Privacidade</a></li>
           </div>
         </ul>
       </li>

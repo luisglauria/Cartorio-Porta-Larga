@@ -21,4 +21,5 @@ urlpatterns = [
     path('modelos-de-requerimentos/', ag_views.modelos_requerimentos, name='modelos_requerimentos'),
     path('sites-uteis/', ag_views.sites_uteis, name='sites_uteis'),
     path('transparencia/', ag_views.transparencia, name='transparencia'),
+    path('politica-de-privacidade/', ag_views.politica_privacidade, name='politica_privacidade'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -44,6 +44,9 @@ def sites_uteis(request):
 def transparencia(request):
     return render(request, 'base/transparencia.html')
 
+def politica_privacidade(request):
+    return render(request, 'base/politica_privacidade.html')
+
 # ── Agendamento ───────────────────────────────────────────────────────────────
 
 @login_required
