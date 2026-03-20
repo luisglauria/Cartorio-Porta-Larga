@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% block title %}Acesso bloqueado — Cartório Porta Larga{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="container"><h1>Acesso bloqueado</h1></div>
+</div>
+<section class="section-block">
+  <div class="container" style="max-width:500px;text-align:center">
+    <div class="alert" style="background:#FDEDED;border-left:3px solid #E74C3C;padding:2rem;border-radius:6px;">
+      <h3 style="color:#A32D2D;margin-bottom:1rem">Muitas tentativas de login</h3>
+      <p style="color:#555">Sua conta foi temporariamente bloqueada por segurança após várias tentativas incorretas. Tente novamente em 1 hora.</p>
+      <a href="{% url 'home' %}" class="btn btn-navy" style="margin-top:1.5rem">Voltar ao início</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

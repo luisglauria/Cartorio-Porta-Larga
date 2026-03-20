@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'agendamento',
     'accounts',
     'api',
+    'axes',
 ]
 
 MIDDLEWARE = [
@@ -34,6 +35,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'cartorio.urls'
@@ -114,3 +116,15 @@ REST_FRAMEWORK = {
 
 TURNSTILE_SITE_KEY = os.getenv('TURNSTILE_SITE_KEY')
 TURNSTILE_SECRET_KEY = os.getenv('TURNSTILE_SECRET_KEY')
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesStandaloneBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+# Proteção contra força bruta
+AXES_FAILURE_LIMIT = 5  # bloqueia após 5 tentativas
+AXES_COOLOFF_TIME = 1   # bloqueia por 1 hora
+AXES_LOCKOUT_TEMPLATE = 'accounts/bloqueado.html'
+AXES_RESET_ON_SUCCESS = True
+AXES_ENABLE_ACCESS_FAILURE_LOG = True
