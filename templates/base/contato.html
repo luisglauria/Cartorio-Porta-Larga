@@ -8,17 +8,21 @@
   <div class="container">
     <div class="contato-grid">
       <div>
-        <div class="info-block"><h4>Endereço</h4><p>Estr. da Batalha, 2305 D - Prazeres, Jaboatão dos Guararapes - PE, 54315-010<br>Recife — PE, CEP 54315-010</p></div>
+        <div class="info-block"><h4>Endereço</h4><p>Estr. da Batalha, 2305 D - Prazeres, Jaboatão dos Guararapes - PE<br>CEP 54315-010</p></div>
         <div class="info-block"><h4>Telefone</h4><p>(81) 3299-3951<br>(81) 90000-0000 (WhatsApp)</p></div>
         <div class="info-block"><h4>E-mail</h4><p>contato@cartorioportalarga.com</p></div>
-        <div class="info-block"><h4>Horário de atendimento</h4><p>Segunda a sexta-feira<br>08h00 às 16h<br>Sábados, domingos e feriados: fechado</p></div>
+        <div class="info-block"><h4>Horário de atendimento</h4><p>Segunda a sexta-feira<br>08h00 às 16h00<br>Sábados, domingos e feriados: fechado</p></div>
         <a href="{% url 'novo_agendamento' %}" class="btn btn-navy" style="margin-top:1rem">Agendar atendimento</a>
       </div>
       <div class="map-area">
-        <div class="map-placeholder">
-          <p>📍 Mapa — integre com Google Maps aqui</p>
-          <small>Substitua este bloco por um &lt;iframe&gt; do Google Maps</small>
-        </div>
+        <iframe
+          src="https://maps.google.com/maps?q=Estr.+da+Batalha,+2305+D,+Prazeres,+Jaboatão+dos+Guararapes&output=embed"
+          width="100%"
+          height="380"
+          style="border:0; border-radius:6px;"
+          allowfullscreen=""
+          loading="lazy">
+        </iframe>
       </div>
     </div>
   </div>
