@@ -24,10 +24,12 @@ INSTALLED_APPS = [
     'accounts',
     'api',
     'axes',
+    'csp',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'csp.middleware.CSPMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'cartorio.middleware.VerificacaoMiddleware',
@@ -166,4 +168,17 @@ LOGGING = {
             'propagate': True,
         },
     },
+}
+
+# Content Security Policy
+CONTENT_SECURITY_POLICY = {
+    'REPORT_ONLY': False,
+    'DIRECTIVES': {
+        'default-src': ("'self'",),
+        'font-src': ("'self'", 'fonts.gstatic.com'),
+        'frame-src': ("'self'", 'challenges.cloudflare.com', 'maps.google.com'),
+        'img-src': ("'self'", 'data:', 'maps.google.com', 'maps.gstatic.com'),
+        'script-src': ("'self'", 'challenges.cloudflare.com', "'unsafe-inline'"),
+        'style-src': ("'self'", 'fonts.googleapis.com', "'unsafe-inline'"),
+    }
 }
