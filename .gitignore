@@ -8,7 +8,7 @@ media/
 *.env
 .env.local
 .env.production
-*.log
+logs/*.log
 .vscode/
 Thumbs.db
 desktop.ini
