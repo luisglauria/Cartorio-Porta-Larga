@@ -5,14 +5,54 @@ from django.utils import timezone
 from .models import Agendamento, Servico
 from .forms import AgendamentoForm
 from .utils import enviar_email_confirmacao, enviar_email_cancelamento
-
+from django.views.decorators.csrf import csrf_exempt
+import requests as req
 
 # ── Páginas públicas ──────────────────────────────────────────────────────────
-
 def home(request):
-    servicos = Servico.objects.filter(ativo=True)[:6]
+    nomes_home = [
+        'Nascimento',
+        'Casamento Civil',
+        'Óbitos',
+        '2º Vias DE CERTIDÕES',
+        'Reconhecimento de firmas',
+        'Autenticação de documentos',
+        'Apostila de Haia',
+        'Retificações',
+        'Restaurações',
+        'Reconhecimento de Paternidade',
+        'Comunicado de venda de veículo Detran',
+    ]
+    servicos = []
+    for nome in nomes_home:
+        try:
+            servico = Servico.objects.get(nome__iexact=nome, ativo=True)
+            servicos.append(servico)
+        except Servico.DoesNotExist:
+            pass
     return render(request, 'base/home.html', {'servicos': servicos})
 
+@csrf_exempt
+def verificacao(request):
+    from django.conf import settings
+    if request.method == 'POST':
+        token = request.POST.get('cf-turnstile-response')
+        if token:
+            resp = req.post('https://challenges.cloudflare.com/turnstile/v0/siteverify', data={
+                'secret': settings.TURNSTILE_SECRET_KEY,
+                'response': token,
+            })
+            if resp.json().get('success'):
+                request.session['verificado'] = True
+                request.session.save()
+                return redirect('home')
+        return render(request, 'base/verificacao.html', {
+            'site_key': settings.TURNSTILE_SITE_KEY,
+            'erro': True
+        })
+    return render(request, 'base/verificacao.html', {
+        'site_key': settings.TURNSTILE_SITE_KEY
+    })
 
 def sobre(request):
     return render(request, 'base/sobre.html')

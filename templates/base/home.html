@@ -26,7 +26,7 @@
   <div class="stat"><div class="stat-num">98%</div><div class="stat-label">Satisfação</div></div>
   <div class="stat"><div class="stat-num">8h–16h</div><div class="stat-label">Atendimento seg–sex</div></div>
   <div class="stat">
-    <a href="{% url 'sobre' %}" class="btn btn-navy">Quem somos</a>
+    <a href="{% url 'sobre' %}" class="btn btn-gold">Quem somos</a>
   </div>
 </section>
 
@@ -36,24 +36,18 @@
       <h2>Nossos serviços</h2>
       <p>Soluções completas em serviços notariais e de registro</p>
     </div>
-    <div class="cards-grid">
+    <div class="servicos-lista">
       {% for servico in servicos %}
-      <div class="card-service">
-        <div class="card-tag">Notarial</div>
-        <h3>{{ servico.nome }}</h3>
-        <p>{{ servico.descricao|truncatewords:20 }}</p>
-        {% if servico.preco %}
-        <div class="card-price">A partir de R$ {{ servico.preco }}</div>
-        {% else %}
-        <div class="card-price">Consultar</div>
-        {% endif %}
+      <div class="servico-lista-item">
+        <span class="servico-lista-dot">◆</span>
+        <span class="servico-lista-nome">{{ servico.nome }}</span>
       </div>
       {% empty %}
       <p>Nenhum serviço cadastrado ainda.</p>
       {% endfor %}
     </div>
     <div class="section-cta">
-      <a href="{% url 'servicos' %}" class="btn btn-navy">Ver todos os serviços</a>
+      <a href="{% url 'servicos' %}" class="btn btn-gold">Agendar serviço</a>
     </div>
   </div>
 </section>
@@ -67,7 +61,7 @@
       <div class="feature">
         <div class="feature-icon">★</div>
         <h3>Tradição e confiança</h3>
-        <p>Mais de 30 anos servindo a comunidade com responsabilidade e ética profissional.</p>
+        <p>Mais de 100 anos servindo a comunidade com responsabilidade e ética profissional.</p>
       </div>
       <div class="feature">
         <div class="feature-icon">⚡</div>
@@ -88,11 +82,4 @@
   </div>
 </section>
 
-<section class="cta-banner">
-  <div class="container">
-    <h2>Pronto para agendar?</h2>
-    <p>Marque seu horário em segundos e seja atendido sem espera.</p>
-    <a href="{% url 'novo_agendamento' %}" class="btn btn-gold">Agendar agora</a>
-  </div>
-</section>
 {% endblock %}

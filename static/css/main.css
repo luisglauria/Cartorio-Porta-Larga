@@ -26,11 +26,14 @@ a:hover { color: #1A2744; }
 }
 
 /* ── Topbar ───────────────────────────────────────────── */
-.topbar { background: var(--gold-pale); border-bottom: 1px solid #ffffff; padding: .45rem 1.5rem; }
+.topbar { background: var(--navy-light); border-bottom: 1px solid rgba(255,255,255,.08); padding: .45rem 1.5rem; }
 .topbar-inner { max-width: 1140px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .5rem; }
-.topbar-left span, .topbar-right span { font-size: .78rem; color: var(--gray-700); }
-.topbar-right { display: flex; gap: 1.5rem; }
-@media (max-width: 700px) { .topbar-left { display: none; } .topbar-right { gap: 1rem; } }
+.topbar-left span { font-size: .78rem; color: rgba(255,255,255,.7); }
+.topbar-right { display: flex; align-items: center; gap: 1.5rem; }
+.topbar-right span { font-size: .78rem; color: rgba(255,255,255,.7); }
+.topbar-socials { display: flex; gap: .75rem; align-items: center; border-left: 1px solid rgba(255,255,255,.15); padding-left: 1.5rem; }
+.topbar-socials a { color: rgba(255,255,255,.6); font-size: .9rem; transition: color .2s; text-decoration: none; }
+.topbar-socials a:hover { color: var(--gold-light); }
 
 /* ── Navbar ───────────────────────────────────────────── */
 .navbar { background: var(--navy); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,.06); }
@@ -48,6 +51,10 @@ a:hover { color: #1A2744; }
 .nav-cta { background: var(--gold); color: var(--navy); font-size: .78rem; font-weight: 500; padding: .45rem 1.1rem; border-radius: 3px; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; flex-shrink: 0; border: none; cursor: pointer; transition: background .2s; }
 .nav-cta:hover { background: var(--gold-light); color: var(--navy); }
 .nav-toggle { display: none; background: none; border: none; color: #fff; font-size: 1.3rem; cursor: pointer; }
+
+/* -- Navbar-transition */
+.navbar { transition: transform .4s ease, box-shadow .4s ease, background .4s ease; }
+.navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.3); background: rgba(26, 39, 68, 0.97); }
 
 /* ── User Menu ────────────────────────────────────────── */
 .nav-user-menu { position: relative; cursor: pointer; }
@@ -125,7 +132,7 @@ a:hover { color: #1A2744; }
 
 /* ── Sections ─────────────────────────────────────────── */
 .section-block { padding: 4rem 1.5rem; }
-.section-alt { background: var(--gray-100); }
+.section-alt { background: var(--gold-pale); border-top: 1px solid #E5D499; }
 .container { max-width: 1100px; margin: 0 auto; }
 .section-header { text-align: center; margin-bottom: 2.5rem; }
 .section-header h2 { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--navy); margin-bottom: .5rem; }
@@ -155,6 +162,13 @@ a:hover { color: #1A2744; }
 .card-price { font-size: .82rem; color: var(--gold); font-weight: 500; margin-top: .85rem; }
 .card-meta { display: flex; justify-content: space-between; align-items: center; margin-top: .85rem; font-size: .8rem; color: var(--gray-500); }
 .card-service .btn { margin-top: 1rem; }
+
+/* ── Serviços Lista Home ──────────────────────────────── */
+.servicos-lista { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-bottom: 2rem; max-width: 900px; margin-left: auto; margin-right: auto; }
+.servico-lista-item { display: flex; align-items: center; gap: .75rem; padding: .75rem 1rem; background: #fff; border: 1px solid var(--gray-300); border-radius: var(--radius); transition: border-color .2s; }
+.servico-lista-item:hover { border-color: var(--gold); }
+.servico-lista-dot { color: var(--gold); font-size: .6rem; flex-shrink: 0; }
+.servico-lista-nome { font-size: .95rem; color: var(--navy); font-weight: 400; }
 
 /* ── Features ─────────────────────────────────────────── */
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; }
@@ -287,6 +301,16 @@ a:hover { color: #1A2744; }
 .modelo-info { flex: 1; }
 .modelo-info h3 { font-size: 1rem; font-weight: 500; color: var(--navy); margin-bottom: .3rem; }
 .modelo-info p { font-size: .85rem; color: var(--gray-500); line-height: 1.6; }
+
+/* ── Cookie Banner ────────────────────────────────────── */
+.cookie-banner { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(200px); background: #fff; border-radius: 8px; box-shadow: 0 8px 32px rgba(0,0,0,.18); padding: 2rem; z-index: 999; max-width: 420px; width: 90%; transition: transform .4s ease, opacity .4s ease; opacity: 0; pointer-events: none; }
+.cookie-banner.show { transform: translateX(-50%) translateY(0); opacity: 1; pointer-events: all; }
+.cookie-box h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); margin-bottom: .75rem; }
+.cookie-box p { font-size: .85rem; color: var(--gray-700); line-height: 1.7; margin-bottom: 1.25rem; }
+.cookie-box a { color: var(--gold); text-decoration: underline; }
+.cookie-btns { display: flex; align-items: center; gap: 1.5rem; }
+.cookie-rejeitar { background: none; border: none; font-size: .9rem; color: var(--gray-500); cursor: pointer; font-weight: 500; text-decoration: underline; transition: color .2s; }
+.cookie-rejeitar:hover { color: var(--navy); }
 
 /* ── Transparência ────────────────────────────────────── */
 .transp-aviso { background: #FFF4E0; border-left: 3px solid #F59E0B; border-radius: var(--radius); padding: 1rem 1.25rem; display: flex; gap: 1rem; align-items: flex-start; margin-top: 1.5rem; }

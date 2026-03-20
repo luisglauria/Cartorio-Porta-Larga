@@ -10,6 +10,19 @@
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
+
+<!-- Banner de Cookies -->
+<div class="cookie-banner" id="cookieBanner">
+  <div class="cookie-box">
+    <h4>Valorizamos sua privacidade</h4>
+    <p>Utilizamos cookies essenciais para o funcionamento do site e para melhorar sua experiência. Ao clicar em "Aceitar", você concorda com o uso de cookies conforme nossa <a href="{% url 'politica_privacidade' %}">Política de Privacidade</a>.</p>
+    <div class="cookie-btns">
+      <button class="btn btn-navy" onclick="aceitarCookies()">Aceitar</button>
+      <button class="cookie-rejeitar" onclick="rejeitarCookies()">Rejeitar</button>
+    </div>
+  </div>
+</div>
+
 <body>
 
 <!-- Barra superior com endereço e telefone -->
@@ -21,6 +34,20 @@
     <div class="topbar-right">
       <span>📞 (81) 3299-3951</span>
       <span>✉ contato@cartorioportalarga.com</span>
+      <div class="topbar-socials">
+        <a href="#" title="WhatsApp">
+          <img src="{% static 'img/whatsapp.svg' %}" alt="WhatsApp" width="16" height="16">
+        </a>
+        <a href="#" title="Instagram">
+          <img src="{% static 'img/instagram.svg' %}" alt="Instagram" width="16" height="16">
+        </a>
+        <a href="#" title="Facebook">
+          <img src="{% static 'img/facebook.svg' %}" alt="Facebook" width="16" height="16">
+        </a>
+        <a href="mailto:contato@cartorioportalarga.com" title="E-mail">
+          <img src="{% static 'img/mail.svg' %}" alt="E-mail" width="16" height="16">
+        </a>
+      </div>
     </div>
   </div>
 </div>

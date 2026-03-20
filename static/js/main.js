@@ -43,3 +43,44 @@ document.addEventListener('DOMContentLoaded', () => {
     field.min = tomorrow.toISOString().split('T')[0];
   });
 });
+
+// Navbar scroll effect
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const navbar = document.querySelector('.navbar');
+  const currentScroll = window.scrollY;
+
+  if (currentScroll > 50) {
+    navbar.classList.add('scrolled');
+    navbar.style.transform = 'translateY(0)';
+  } else {
+    navbar.classList.remove('scrolled');
+  }
+
+  if (currentScroll > lastScroll && currentScroll > 200) {
+    navbar.style.transform = 'translateY(-100%)';
+  } else {
+    navbar.style.transform = 'translateY(0)';
+  }
+
+  lastScroll = currentScroll;
+});
+
+// Cookie banner
+function aceitarCookies() {
+  localStorage.setItem('cookiesAceitos', 'true');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+
+function rejeitarCookies() {
+  localStorage.setItem('cookiesAceitos', 'false');
+  document.getElementById('cookieBanner').classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (!localStorage.getItem('cookiesAceitos')) {
+    setTimeout(() => {
+      document.getElementById('cookieBanner').classList.add('show');
+    }, 1500);
+  }
+});

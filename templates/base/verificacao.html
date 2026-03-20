@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificação — Cartório Porta Larga</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'DM Sans',sans-serif;background:#1A2744;min-height:100vh;display:flex;align-items:center;justify-content:center;}
+    .box{background:#fff;border-radius:8px;padding:3rem 2.5rem;text-align:center;max-width:420px;width:90%;}
+    .logo-wrapper{text-align:center;margin-bottom:1.75rem;}
+    .logo-text h2{font-family:'Playfair Display',serif;color:#1A2744;font-size:1.4rem;margin-bottom:.3rem;}
+    .logo-text span{font-size:.7rem;color:#9A9284;letter-spacing:.12em;text-transform:uppercase;}
+    .divider{width:100%;height:1px;background:#E0DAC8;margin-bottom:1.5rem;}
+    p{color:#9A9284;font-size:.875rem;margin-bottom:1.5rem;line-height:1.6;}
+    .cf-turnstile{display:flex;justify-content:center;margin-bottom:1.5rem;}
+    .btn{background:#B8962E;color:#1A2744;border:none;padding:.75rem 2rem;border-radius:4px;font-size:.9rem;font-weight:500;cursor:pointer;width:100%;transition:background .2s;}
+    .btn:hover{background:#D4AF5A;}
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="logo-wrapper">
+      <div class="logo-text">
+        <h2>Cartório Porta Larga</h2>
+        <span>Registro Civil 1º Distrito</span>
+      </div>
+    </div>
+    <div class="divider"></div>
+    <p>Por favor, confirme que você é humano para acessar o site.</p>
+    <form method="post" action="/verificacao/">
+      <div class="cf-turnstile" data-sitekey="{{ site_key }}"></div>
+      <button type="submit" class="btn">Acessar o site</button>
+    </form>
+    {% if erro %}
+    <p style="color:#C44;margin-top:1rem;">Verificação falhou. Tente novamente.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
