@@ -5,7 +5,14 @@ __pycache__/
 staticfiles/
 media/
 .env
+*.env
+.env.local
+.env.production
 *.log
 .vscode/
 Thumbs.db
 desktop.ini
+*.pem
+*.key
+*.cert
+local_settings.py
