@@ -68,6 +68,11 @@ a:hover { color: #1A2744; }
 .nav-user-dropdown a:hover { background: var(--gold-pale); color: var(--gold); }
 .nav-user-dropdown a:hover { background: var(--gold-pale); color: var(--gold); border-bottom: 1px solid var(--gold); }
 
+/* ── Nav Login Aviso ──────────────────────────────────── */
+.nav-login-aviso { display: flex; align-items: center; gap: .4rem; color: rgba(255,255,255,.7); font-size: .82rem; letter-spacing: .07em; text-transform: uppercase; padding: .4rem .8rem; border: 1px solid rgba(255,255,255,.2); border-radius: 3px; transition: all .2s; }
+.nav-login-aviso:hover { color: var(--gold-light); border-color: var(--gold-light); }
+.nav-login-icon { font-size: .9rem; }
+
 /* ── Nav Dropdown ─────────────────────────────────────── */
 .nav-dropdown { position: relative; }
 .nav-dropdown-menu { display: none; position: absolute; top: 100%; left: 0; padding-top: 12px; background: transparent; z-index: 200; min-width: 220px; list-style: none; }

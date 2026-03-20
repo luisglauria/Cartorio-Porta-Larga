@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="{% static 'css/main.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
+<body>
 
 <!-- Banner de Cookies -->
 <div class="cookie-banner" id="cookieBanner">
@@ -22,8 +23,6 @@
     </div>
   </div>
 </div>
-
-<body>
 
 <!-- Barra superior com endereço e telefone -->
 <div class="topbar">
@@ -83,6 +82,13 @@
       <li><a href="{% url 'meus_agendamentos' %}">Meus agendamentos</a></li>
       {% endif %}
     </ul>
+
+    {% if not user.is_authenticated %}
+    <a href="{% url 'login' %}" class="nav-login-aviso">
+      <span class="nav-login-icon">👤</span>
+      <span>Entrar</span>
+    </a>
+    {% endif %}
 
     {% if user.is_authenticated %}
     <div class="nav-user-menu">

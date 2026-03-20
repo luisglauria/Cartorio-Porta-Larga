@@ -1,4 +1,7 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -109,5 +112,5 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 20,
 }
 
-TURNSTILE_SITE_KEY = '0x4AAAAAACtho9b47t7ky7RD'
-TURNSTILE_SECRET_KEY = '0x4AAAAAACtho0Gu4prNF6X76tz8cJlN848'
+TURNSTILE_SITE_KEY = os.getenv('TURNSTILE_SITE_KEY')
+TURNSTILE_SECRET_KEY = os.getenv('TURNSTILE_SECRET_KEY')
