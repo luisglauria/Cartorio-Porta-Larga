@@ -35,6 +35,9 @@ def retificacao(request):
     servicos = Servico.objects.filter(nome__icontains='retificação', ativo=False).order_by('ordem')
     return render(request, 'agendamento/retificacao.html', {'servicos': servicos})
 
+def modelos_requerimentos(request):
+    return render(request, 'base/modelos_requerimentos.html')
+
 
 # ── Agendamento ───────────────────────────────────────────────────────────────
 

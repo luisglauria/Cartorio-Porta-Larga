@@ -1,0 +1,45 @@
+{% extends "base/base.html" %}
+{% load static %}
+{% block title %}Modelos de Requerimentos — Cartório Porta Larga{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div class="container">
+    <h1>Modelos de Requerimentos</h1>
+    <p>Baixe os modelos em PDF e preencha antes de comparecer ao cartório</p>
+  </div>
+</div>
+<section class="section-block">
+  <div class="container" style="max-width:700px">
+    <div class="modelos-list">
+
+      <div class="modelo-card">
+        <div class="modelo-icon">📄</div>
+        <div class="modelo-info">
+          <h3>Requerimento de Inteiro Teor</h3>
+          <p>Modelo para solicitação de certidão de inteiro teor de registros lavrados neste cartório.</p>
+        </div>
+        <a href="{% static 'docs/requerimento-inteiro-teor.pdf' %}" download class="btn btn-gold btn-sm">Baixar PDF</a>
+      </div>
+
+      <div class="modelo-card">
+        <div class="modelo-icon">📄</div>
+        <div class="modelo-info">
+          <h3>Requerimento de Retificação</h3>
+          <p>Modelo para solicitação de retificação de registro civil (prenome, sobrenome, data, etc).</p>
+        </div>
+        <a href="{% static 'docs/requerimento-retificacao.pdf' %}" download class="btn btn-gold btn-sm">Baixar PDF</a>
+      </div>
+
+      <div class="modelo-card">
+        <div class="modelo-icon">📄</div>
+        <div class="modelo-info">
+          <h3>Requerimento de Reconhecimento de Paternidade</h3>
+          <p>Modelo para solicitação de reconhecimento voluntário de paternidade.</p>
+        </div>
+        <a href="{% static 'docs/requerimento-reconhecimento-paternidade.pdf' %}" download class="btn btn-gold btn-sm">Baixar PDF</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+{% endblock %}
