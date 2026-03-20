@@ -53,12 +53,13 @@ a:hover { color: #1A2744; }
 .nav-user-menu { position: relative; cursor: pointer; }
 .nav-user-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--gold); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; transition: background .2s; }
 .nav-user-menu:hover .nav-user-icon { background: var(--gold-light); }
-.nav-user-dropdown { display: none; position: absolute; right: 0; top: 36px; padding-top: 12px; background: transparent; z-index: 200; }
-.nav-user-dropdown-inner { background: #fff; border: 1px solid var(--gray-300); border-radius: var(--radius); padding: .75rem 1rem; min-width: 160px; display: flex; flex-direction: column; gap: .5rem; }
+.nav-user-dropdown { display: none; position: absolute; right: 0; top: 100%; padding-top: 12px; background: transparent; z-index: 200; }
+.nav-user-dropdown-inner { background: #fff; border: 1px solid var(--gray-300); border-radius: var(--radius); padding: .5rem 0; min-width: 160px; display: flex; flex-direction: column; }
 .nav-user-menu:hover .nav-user-dropdown { display: block; }
-.nav-user-dropdown span { font-size: .8rem; color: var(--gray-500); border-bottom: 1px solid var(--gray-100); padding-bottom: .5rem; margin-bottom: .25rem; display: block; }
-.nav-user-dropdown a { font-size: .85rem; color: var(--navy); padding: .25rem 0; display: block; }
-.nav-user-dropdown a:hover { color: var(--gold); }
+.nav-user-dropdown span { font-size: .8rem; color: var(--gray-500); padding: .5rem 1.25rem; border-bottom: 1px solid var(--gray-100); display: block; }
+.nav-user-dropdown a { font-size: .85rem; color: var(--navy); padding: .6rem 1.25rem; display: block; transition: background .2s, color .2s; }
+.nav-user-dropdown a:hover { background: var(--gold-pale); color: var(--gold); }
+.nav-user-dropdown a:hover { background: var(--gold-pale); color: var(--gold); border-bottom: 1px solid var(--gold); }
 
 /* ── Nav Dropdown ─────────────────────────────────────── */
 .nav-dropdown { position: relative; }
@@ -134,10 +135,15 @@ a:hover { color: #1A2744; }
 .section-top-bar h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); }
 
 /* ── Page Header ──────────────────────────────────────── */
-.page-header { background: var(--navy); padding: 3rem 1.5rem; }
-.page-header .container { }
-.page-header h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2.2rem; font-weight: 700; }
-.page-header p { color: rgba(255,255,255,.55); margin-top: .4rem; font-weight: 300; }
+.page-header { background: var(--navy); padding: 3.5rem 1.5rem; position: relative; overflow: hidden; text-align: center; }
+.page-header::before { content: ''; position: absolute; width: 300px; height: 300px; border-radius: 50%; background: rgba(184,150,46,.04); top: -100px; left: -80px; pointer-events: none; }
+.page-header::after { content: ''; position: absolute; width: 200px; height: 200px; border-radius: 50%; background: rgba(184,150,46,.04); bottom: -80px; right: -60px; pointer-events: none; }
+.page-header-dot1 { position: absolute; width: 80px; height: 80px; border-radius: 50%; background: rgba(184,150,46,.06); top: 20px; right: 200px; pointer-events: none; }
+.page-header-dot2 { position: absolute; width: 50px; height: 50px; border-radius: 50%; background: rgba(184,150,46,.05); bottom: 15px; left: 300px; pointer-events: none; }
+.page-header-dot3 { position: absolute; width: 120px; height: 120px; border-radius: 50%; background: rgba(184,150,46,.03); top: -30px; right: 400px; pointer-events: none; }
+.page-header .container { position: relative; }
+.page-header h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2.4rem; font-weight: 700; margin-bottom: .4rem; }
+.page-header p { color: rgba(255,255,255,.55); margin-top: .4rem; font-weight: 300; font-size: .95rem; }
 
 /* ── Cards Grid ───────────────────────────────────────── */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; }
