@@ -176,9 +176,10 @@ CONTENT_SECURITY_POLICY = {
     'DIRECTIVES': {
         'default-src': ("'self'",),
         'font-src': ("'self'", 'fonts.gstatic.com'),
-        'frame-src': ("'self'", 'challenges.cloudflare.com', 'maps.google.com'),
-        'img-src': ("'self'", 'data:', 'maps.google.com', 'maps.gstatic.com'),
-        'script-src': ("'self'", 'challenges.cloudflare.com', "'unsafe-inline'"),
+        'frame-src': ("'self'", 'challenges.cloudflare.com', 'maps.google.com', 'www.google.com', 'maps.googleapis.com'),
+        'img-src': ("'self'", 'data:', 'maps.google.com', 'maps.gstatic.com', '*.googleapis.com', '*.gstatic.com'),
+        'script-src': ("'self'", 'challenges.cloudflare.com', "'unsafe-inline'", 'maps.googleapis.com'),
         'style-src': ("'self'", 'fonts.googleapis.com', "'unsafe-inline'"),
+        'connect-src': ("'self'", 'maps.googleapis.com'),
     }
 }
