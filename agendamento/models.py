@@ -9,6 +9,7 @@ class Servico(models.Model):
     duracao_minutos = models.PositiveIntegerField('Duração (min)', default=30)
     preco = models.DecimalField('Preço (R$)', max_digits=8, decimal_places=2, null=True, blank=True)
     ativo = models.BooleanField('Ativo', default=True)
+    agendavel = models.BooleanField('Disponível para agendamento', default=False)
     ordem = models.PositiveIntegerField('Ordem de exibição', default=0)
     resumo = models.CharField('Resumo (exibido no card)', max_length=200, blank=True)
 
@@ -49,8 +50,15 @@ class Agendamento(models.Model):
         ('concluido', 'Concluído'),
     ]
 
+    ATENDENTE_CHOICES = [
+        ('', 'Selecione...'),
+        ('maria_clara', 'Maria Clara'),
+        ('ketily', 'Ketily'),
+    ]
+
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='agendamentos', verbose_name='Cliente')
     servico = models.ForeignKey(Servico, on_delete=models.PROTECT, verbose_name='Serviço')
+    atendente = models.CharField('Atendente', max_length=20, choices=ATENDENTE_CHOICES, default='')
     data = models.DateField('Data')
     hora = models.TimeField('Hora')
     status = models.CharField('Status', max_length=20, choices=STATUS_CHOICES, default='pendente')
@@ -63,7 +71,7 @@ class Agendamento(models.Model):
         verbose_name = 'Agendamento'
         verbose_name_plural = 'Agendamentos'
         ordering = ['-data', '-hora']
-        unique_together = ['data', 'hora', 'servico']
+        unique_together = ['data', 'hora', 'atendente']
 
     def __str__(self):
         return f'{self.usuario.get_full_name() or self.usuario.username} — {self.servico} em {self.data.strftime("%d/%m/%Y")} às {self.hora.strftime("%H:%M")}'

@@ -44,10 +44,12 @@ def criar_servicos():
 
     criados = 0
     for s in servicos:
-        obj, created = Servico.objects.get_or_create(nome=s['nome'], defaults=s)
+        nome = s.pop('nome')
+        obj, created = Servico.objects.update_or_create(nome=nome, defaults=s)
+        s['nome'] = nome
         if created:
             criados += 1
-    print(f'  ✓ {criados} serviços criados ({Servico.objects.count()} total)')
+    print(f'  ✓ {criados} serviços criados/atualizados ({Servico.objects.count()} total)')
 
 
 def criar_horarios():

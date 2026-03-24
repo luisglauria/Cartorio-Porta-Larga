@@ -5,8 +5,8 @@ from .models import Agendamento, Servico, HorarioDisponivel
 
 @admin.register(Servico)
 class ServicoAdmin(admin.ModelAdmin):
-    list_display = ['nome', 'duracao_minutos', 'preco', 'ativo', 'ordem']
-    list_editable = ['ativo', 'ordem']
+    list_display = ['nome', 'duracao_minutos', 'preco', 'ativo', 'agendavel', 'ordem']
+    list_editable = ['ativo', 'agendavel', 'ordem']
     search_fields = ['nome']
 
 
@@ -18,8 +18,8 @@ class HorarioDisponivelAdmin(admin.ModelAdmin):
 
 @admin.register(Agendamento)
 class AgendamentoAdmin(admin.ModelAdmin):
-    list_display = ['usuario_nome', 'servico', 'data', 'hora', 'status_badge', 'email_confirmacao_enviado', 'criado_em']
-    list_filter = ['status', 'servico', 'data']
+    list_display = ['usuario_nome', 'servico', 'atendente', 'data', 'hora', 'status_badge', 'email_confirmacao_enviado', 'criado_em']
+    list_filter = ['status', 'servico', 'atendente', 'data']
     search_fields = ['usuario__first_name', 'usuario__last_name', 'usuario__email', 'usuario__username']
     date_hierarchy = 'data'
     list_per_page = 30
@@ -28,7 +28,7 @@ class AgendamentoAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ('Cliente', {'fields': ('usuario',)}),
-        ('Agendamento', {'fields': ('servico', 'data', 'hora', 'status', 'observacoes')}),
+        ('Agendamento', {'fields': ('servico', 'atendente', 'data', 'hora', 'status', 'observacoes')}),
         ('Controle', {'fields': ('email_confirmacao_enviado', 'criado_em', 'atualizado_em')}),
     )
 

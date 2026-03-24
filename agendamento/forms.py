@@ -30,8 +30,9 @@ class AgendamentoForm(forms.ModelForm):
             label='Horário',
             widget=forms.Select(attrs={'class': 'form-control'})
         )
-        self.fields['servico'].queryset = Servico.objects.filter(ativo=True)
+        self.fields['servico'].queryset = Servico.objects.filter(ativo=True, agendavel=True)
         self.fields['servico'].widget.attrs['class'] = 'form-control'
+        self.fields['atendente'].widget.attrs['class'] = 'form-control'
         self.fields['observacoes'].widget.attrs.update({
             'class': 'form-control',
             'rows': 3,
@@ -40,7 +41,7 @@ class AgendamentoForm(forms.ModelForm):
 
     class Meta:
         model = Agendamento
-        fields = ['servico', 'data', 'hora', 'observacoes']
+        fields = ['servico', 'atendente', 'data', 'hora', 'observacoes']
 
     def clean_data(self):
         data = self.cleaned_data['data']
@@ -56,8 +57,9 @@ class AgendamentoForm(forms.ModelForm):
         data = cleaned.get('data')
         hora_str = cleaned.get('hora')
         servico = cleaned.get('servico')
-        if data and hora_str and servico:
+        atendente = cleaned.get('atendente')
+        if data and hora_str and atendente:
             hora = datetime.time.fromisoformat(hora_str)
-            if Agendamento.objects.filter(data=data, hora=hora, servico=servico).exclude(status='cancelado').exists():
-                raise forms.ValidationError('Este horário já está reservado para este serviço. Escolha outro.')
+            if Agendamento.objects.filter(data=data, hora=hora, atendente=atendente).exclude(status='cancelado').exists():
+                raise forms.ValidationError('Este horário já está reservado com esta atendente. Escolha outro horário ou atendente.')
         return cleaned

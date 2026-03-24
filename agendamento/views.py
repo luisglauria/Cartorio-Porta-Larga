@@ -10,26 +10,7 @@ import requests as req
 
 # ── Páginas públicas ──────────────────────────────────────────────────────────
 def home(request):
-    nomes_home = [
-        'Nascimento',
-        'Casamento Civil',
-        'Óbitos',
-        '2º Vias DE CERTIDÕES',
-        'Reconhecimento de firmas',
-        'Autenticação de documentos',
-        'Apostila de Haia',
-        'Retificações',
-        'Restaurações',
-        'Reconhecimento de Paternidade',
-        'Comunicado de venda de veículo Detran',
-    ]
-    servicos = []
-    for nome in nomes_home:
-        try:
-            servico = Servico.objects.get(nome__iexact=nome, ativo=True)
-            servicos.append(servico)
-        except Servico.DoesNotExist:
-            pass
+    servicos = Servico.objects.filter(ativo=True).exclude(nome__icontains='retificação — ')
     return render(request, 'base/home.html', {'servicos': servicos})
 
 @csrf_exempt
