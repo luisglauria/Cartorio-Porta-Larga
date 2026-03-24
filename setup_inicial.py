@@ -19,14 +19,23 @@ from agendamento.models import Servico, HorarioDisponivel
 
 def criar_servicos():
     servicos = [
-        {'nome': 'Escritura pública', 'descricao': 'Compra e venda, doação, divórcio, inventário e outros atos notariais que exigem forma pública.', 'duracao_minutos': 60, 'preco': None, 'ordem': 1},
-        {'nome': 'Procuração pública', 'descricao': 'Procuração ad judicia, ad negotia, para fins específicos e gerais com plena validade jurídica.', 'duracao_minutos': 30, 'preco': 89.00, 'ordem': 2},
-        {'nome': 'Reconhecimento de firma', 'descricao': 'Reconhecimento de firma por autenticidade ou semelhança em documentos diversos.', 'duracao_minutos': 15, 'preco': 15.00, 'ordem': 3},
-        {'nome': 'Autenticação de documentos', 'descricao': 'Autenticação de cópias de documentos originais com fé pública.', 'duracao_minutos': 15, 'preco': 15.00, 'ordem': 4},
-        {'nome': 'Certidão de inteiro teor', 'descricao': 'Certidão de atos lavrados neste cartório para todos os fins de direito.', 'duracao_minutos': 30, 'preco': 45.00, 'ordem': 5},
-        {'nome': 'Testamento público', 'descricao': 'Redação e registro de testamento com plena validade jurídica e sigilo garantido.', 'duracao_minutos': 90, 'preco': None, 'ordem': 6},
-        {'nome': 'Certidão eletrônica', 'descricao': 'Emissão digital com QR Code e validade em todo o território nacional.', 'duracao_minutos': 20, 'preco': 35.00, 'ordem': 7},
-        {'nome': 'Ata notarial', 'descricao': 'Lavração de ata notarial para constatação de fatos, documentos digitais e outros.', 'duracao_minutos': 45, 'preco': None, 'ordem': 8},
+        {'nome': 'Nascimento', 'resumo': 'Registro de nascimento e emissão de certidão. Serviço gratuito, emitido na hora.', 'descricao': 'Registro de Nascimento\n\nDOCUMENTAÇÃO NECESSÁRIA:\n• Declaração de Nascido Vivo (DNV-papel amarelo dado pelo hospital em que a criança nasceu);\n• RG e CPF ORIGINAL dos pais;\n• Certidão de casamento dos pais, caso sejam casados;\n\nCaso não tenha RG, poderá apresentar os seguintes documentos:\n• Reservista;\n• CTPS física;\n• CNH, acompanhada de certidão de nascimento ou casamento, para que possamos verificar a NATURALIDADE;\n\nServiço GRATUITO\nPRAZO DE ENTREGA: Emitimos a certidão na hora\nSOLICITAÇÕES: Apenas em nosso balcão de atendimento presencialmente.\n\nATENÇÃO: Para registrar uma pessoa no Cartório Porta Larga, é preciso que ela tenha nascido nos bairros de COMPORTAS, CAJUEIRO SECO, PRAZERES, JARDIM JORDÃO, GUARARAPES, PIEDADE, CANDEIAS, BARRA DE JANGADA, MARCOS FREIRE ou MURIBECA, ou que um dos genitores resida em um desses bairros.', 'duracao_minutos': 30, 'preco': None, 'ativo': True, 'ordem': 1},
+        {'nome': 'Casamento Civil', 'resumo': 'Habilitação e celebração de casamento civil com plena validade jurídica.', 'descricao': 'Documentos necessários para casamento civil\n\nBRASILEIROS SOLTEIROS\n• Certidão de Nascimento ORIGINAL E ATUALIZADA COM NO MÁXIMO 90 DIAS DE EMISSÃO;\n• RG e CPF;\n• Comprovante de residência.\n\nBRASILEIROS DIVORCIADOS\n• Certidão de Casamento com Averbação de Divórcio ORIGINAL E ATUALIZADA COM NO MÁXIMO 90 DIAS DE EMISSÃO;\n• RG e CPF;\n• Comprovante de residência.\n\nBRASILEIROS VIÚVOS\n• Certidão de Casamento com Averbação do Óbito ORIGINAL E ATUALIZADA;\n• Certidão de ÓBITO do falecido(a);\n• RG e CPF;\n• Comprovante de residência.\n\nATENÇÃO: Pelo menos 1 dos nubentes precisa residir nos bairros: COMPORTAS, CAJUEIRO SECO, PRAZERES, JARDIM JORDÃO, GUARARAPES, PIEDADE, CANDEIAS, BARRA DE JANGADA, MARCOS FREIRE e MURIBECA.', 'duracao_minutos': 60, 'preco': None, 'ativo': True, 'ordem': 2},
+        {'nome': 'Casamento Religioso com Civil', 'resumo': 'Casamento religioso com registro civil. Processo em 7 etapas com prazo de até 7 dias.', 'descricao': 'Documentos necessários para casamento civil\n\nBRASILEIROS SOLTEIROS\n• Certidão de Nascimento ORIGINAL E ATUALIZADA COM NO MÁXIMO 90 DIAS DE EMISSÃO;\n• RG e CPF;\n• Comprovante de residência.\n\nBRASILEIROS DIVORCIADOS\n• Certidão de Casamento com Averbação de Divórcio ORIGINAL E ATUALIZADA COM NO MÁXIMO 90 DIAS DE EMISSÃO;\n• RG e CPF;\n• Comprovante de residência.\n\nBRASILEIROS VIÚVOS\n• Certidão de Casamento com Averbação do Óbito ORIGINAL E ATUALIZADA;\n• Certidão de ÓBITO do falecido(a);\n• RG e CPF;\n• Comprovante de residência.', 'duracao_minutos': 60, 'preco': None, 'ativo': False, 'ordem': 3},
+        {'nome': 'Conversão de União Estável em Casamento', 'resumo': 'Converta sua união estável em casamento civil com segurança jurídica.', 'descricao': 'Documentos necessários para casamento civil\n\nBRASILEIROS SOLTEIROS\n• Certidão de Nascimento ORIGINAL E ATUALIZADA COM NO MÁXIMO 90 DIAS DE EMISSÃO;\n• RG e CPF;\n• Comprovante de residência.\n\nATENÇÃO: Pelo menos 1 dos nubentes precisa residir nos bairros atendidos pelo cartório.', 'duracao_minutos': 60, 'preco': None, 'ativo': False, 'ordem': 4},
+        {'nome': 'Óbitos', 'resumo': 'Registro de óbito e emissão de certidão com atendimento ágil.', 'descricao': 'Registro de Óbito\n\nDOCUMENTAÇÃO NECESSÁRIA:\n• RG e CPF do declarante (podendo ser CNH);\n• Atestado de óbito;\n• RG e CPF e/ou certidão de nascimento do falecido.', 'duracao_minutos': 30, 'preco': None, 'ativo': True, 'ordem': 5},
+        {'nome': '2º Vias DE CERTIDÕES', 'resumo': 'Emissão de segunda via de certidões de nascimento, casamento e óbito.', 'descricao': 'Emissão de segunda via de certidões diversas de nascimento, casamento e óbito lavrados neste cartório.', 'duracao_minutos': 20, 'preco': None, 'ativo': True, 'ordem': 6},
+        {'nome': 'Reconhecimento de firmas', 'resumo': 'Autenticação de assinatura por autenticidade ou semelhança. Atendimento rápido.', 'descricao': 'Reconhecimento de firma por autenticidade ou semelhança em documentos diversos.', 'duracao_minutos': 15, 'preco': 15.00, 'ativo': True, 'ordem': 7},
+        {'nome': 'Autenticação de documentos', 'resumo': 'Autenticação de cópias de documentos com fé pública cartorária.', 'descricao': 'Autenticação de cópias de documentos originais com fé pública cartorária.', 'duracao_minutos': 15, 'preco': 15.00, 'ativo': True, 'ordem': 8},
+        {'nome': 'Apostila de Haia', 'resumo': 'Valide seus documentos para uso internacional com o apostilamento.', 'descricao': 'Apostilamento de documentos para validade internacional conforme a Convenção de Haia.', 'duracao_minutos': 30, 'preco': None, 'ativo': True, 'ordem': 9},
+        {'nome': 'Retificações', 'resumo': 'Correção de erros em registros civis. Mudança de prenome, sobrenome, gênero e nome de recém-nascido diretamente no cartório.', 'descricao': 'Retificação de registros civis.', 'duracao_minutos': 30, 'preco': None, 'ativo': True, 'ordem': 10},
+        {'nome': 'Retificação — Mudança de Prenome', 'resumo': 'Alteração do primeiro nome diretamente no cartório, sem precisar ir à Justiça. Feita uma única vez.', 'descricao': 'REQUISITOS E DOCUMENTOS NECESSÁRIOS PARA A MUDANÇA DE PRENOME:\n• Pedido pessoalmente ou mediante procurador;\n• Alteração em cartório só pode ser feita uma única vez;\n• Identidade, CPF, Passaporte (se tiver), Título de eleitor;\n• Certidão de nascimento atualizada;\n• Comprovante de residência.', 'duracao_minutos': 30, 'preco': None, 'ativo': False, 'ordem': 11},
+        {'nome': 'Retificação — Mudança de Sobrenome', 'resumo': 'Inclusão ou exclusão de sobrenomes familiares diretamente no cartório, sem processo judicial.', 'descricao': 'REQUISITOS E DOCUMENTOS NECESSÁRIOS PARA A MUDANÇA DE SOBRENOME:\n• Identidade e CPF;\n• Certidão de nascimento e de casamento se for o caso;\n• Documentos que comprovem a relação de parentesco/filiação.', 'duracao_minutos': 30, 'preco': None, 'ativo': False, 'ordem': 12},
+        {'nome': 'Retificação — Mudança de Prenome e Gênero', 'resumo': 'Adequação do prenome e gênero à identidade autopercebida para pessoas transgênero.', 'descricao': 'REQUISITOS E DOCUMENTOS NECESSÁRIOS PARA A MUDANÇA DE PRENOME E GÊNERO:\n• Pessoa maior de 18 anos;\n• Não pode ser realizado por procurador;\n• Identidade, CPF, Passaporte (se tiver), Título de eleitor;\n• Certidão de nascimento atualizada;\n• Comprovante de residência;\n• Certidões dos distribuidores cível e criminal dos últimos 5 anos.', 'duracao_minutos': 30, 'preco': None, 'ativo': False, 'ordem': 13},
+        {'nome': 'Retificação — Alteração de Nome de Recém-Nascido', 'resumo': 'Alteração do nome do recém-nascido em até 15 dias após o registro de nascimento.', 'descricao': 'Em até 15 dias após o registro do nascimento, qualquer dos genitores poderá apresentar oposição fundamentada ao prenome e sobrenomes indicados pelo declarante.\n\nSe houver manifestação consensual dos genitores, será realizado o procedimento de retificação do registro diretamente no cartório.', 'duracao_minutos': 30, 'preco': None, 'ativo': False, 'ordem': 14},
+        {'nome': 'Restaurações', 'resumo': 'Restauração de registros danificados ou extraviados no cartório.', 'descricao': 'Restauração de registros danificados ou extraviados no cartório.', 'duracao_minutos': 45, 'preco': None, 'ativo': True, 'ordem': 15},
+        {'nome': 'Reconhecimento de Paternidade', 'resumo': 'Registro voluntário de paternidade com validade jurídica imediata.', 'descricao': 'Registro e reconhecimento voluntário de paternidade com validade jurídica imediata.', 'duracao_minutos': 30, 'preco': None, 'ativo': True, 'ordem': 16},
+        {'nome': 'Comunicado de venda de veículo - Detran', 'resumo': 'Comunicado de venda de veículo ao Detran para transferência de responsabilidade.', 'descricao': 'Comunicado de venda de veículo ao Detran para transferência de responsabilidade ao novo proprietário.', 'duracao_minutos': 20, 'preco': None, 'ativo': True, 'ordem': 17},
     ]
     criados = 0
     for s in servicos:
@@ -38,9 +47,9 @@ def criar_servicos():
 
 def criar_horarios():
     horarios = []
-    for dia in range(5):  # 0=seg a 4=sex
+    for dia in range(5):
         horarios.append({'dia_semana': dia, 'hora_inicio': '08:00', 'hora_fim': '12:00'})
-        horarios.append({'dia_semana': dia, 'hora_inicio': '14:00', 'hora_fim': '18:00'})
+        horarios.append({'dia_semana': dia, 'hora_inicio': '14:00', 'hora_fim': '16:00'})
     criados = 0
     for h in horarios:
         obj, created = HorarioDisponivel.objects.get_or_create(**h)
@@ -64,23 +73,6 @@ def criar_superuser():
         print('  · Superusuário já existe')
 
 
-def criar_usuario_teste():
-    if not User.objects.filter(username='cliente@teste.com').exists():
-        user = User.objects.create_user(
-            username='cliente@teste.com',
-            email='cliente@teste.com',
-            password='cliente123',
-            first_name='Maria',
-            last_name='Silva',
-        )
-        user.perfil.cpf = '000.000.000-00'
-        user.perfil.telefone = '(81) 90000-0000'
-        user.perfil.save()
-        print('  ✓ Usuário de teste criado — login: cliente@teste.com / senha: cliente123')
-    else:
-        print('  · Usuário de teste já existe')
-
-
 if __name__ == '__main__':
     print('\n=== Setup Cartório Porta Larga ===\n')
 
@@ -98,9 +90,6 @@ if __name__ == '__main__':
     print('\n[4] Criando superusuário...')
     criar_superuser()
 
-    print('\n[5] Criando usuário de teste...')
-    criar_usuario_teste()
-
     print('\n=== Tudo pronto! ===')
     print('\nPara iniciar o servidor:')
     print('  python manage.py runserver')
@@ -108,5 +97,4 @@ if __name__ == '__main__':
     print('  Site:        http://localhost:8000')
     print('  Admin:       http://localhost:8000/admin  (admin / admin123)')
     print('  API:         http://localhost:8000/api/')
-    print('  API Token:   POST http://localhost:8000/api/auth/token/')
     print()
