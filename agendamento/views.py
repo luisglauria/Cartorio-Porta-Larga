@@ -14,6 +14,8 @@ def home(request):
     nomes_home = [
         'Nascimento',
         'Casamento Civil',
+        'Casamento Religioso com Civil',
+        'Conversão de União Estável em Casamento',
         'Óbitos',
         '2º Vias DE CERTIDÕES',
         'Reconhecimento de firmas',
