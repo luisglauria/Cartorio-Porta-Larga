@@ -7,4 +7,5 @@ urlpatterns = [
     path('<int:pk>/', views.detalhe_agendamento, name='detalhe_agendamento'),
     path('<int:pk>/cancelar/', views.cancelar_agendamento, name='cancelar_agendamento'),
     path('retificacao/', views.retificacao, name='retificacao'),
+    path('horarios-disponiveis/', views.horarios_disponiveis, name='horarios_disponiveis'),
 ]

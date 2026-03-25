@@ -236,6 +236,38 @@ a:hover { color: #1A2744; }
 .passo-text { color: rgba(255,255,255,.85); font-size: .875rem; line-height: 1.7; padding-top: .4rem; }
 .passo-text strong { color: #fff; }
 
+/* ── Calendário Agendamento ───────────────────────────── */
+.ag-step { margin-bottom: 2rem; }
+.ag-step-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--navy); margin-bottom: 1rem; padding-bottom: .5rem; border-bottom: 2px solid var(--gold); display: inline-block; }
+.atendentes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+.atendente-card { background: #fff; border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 1.5rem 1rem; text-align: center; cursor: pointer; transition: all .2s; }
+.atendente-card:hover { border-color: var(--gold); }
+.atendente-card.selecionado { border-color: var(--gold); background: var(--gold-pale); }
+.atendente-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--navy); color: var(--gold-light); font-size: 1.4rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto .75rem; }
+.atendente-nome { font-size: .9rem; font-weight: 500; color: var(--navy); }
+.calendario-wrapper { background: #fff; border: 1px solid var(--gray-300); border-radius: var(--radius); overflow: hidden; }
+.calendario-header { background: var(--navy); color: #fff; display: flex; justify-content: space-between; align-items: center; padding: .75rem 1rem; }
+.calendario-header button { background: none; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; padding: .25rem .5rem; }
+.calendario-header span { font-weight: 500; font-size: .95rem; }
+.calendario-dias-semana { display: grid; grid-template-columns: repeat(7, 1fr); background: var(--gold-pale); }
+.calendario-dias-semana span { text-align: center; font-size: .75rem; font-weight: 500; color: var(--gray-700); padding: .5rem 0; }
+.calendario-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; padding: .5rem; }
+.cal-dia { text-align: center; padding: .6rem .25rem; border-radius: 4px; font-size: .875rem; cursor: default; }
+.cal-dia.disponivel { cursor: pointer; color: var(--navy); font-weight: 500; }
+.cal-dia.disponivel:hover { background: var(--gold-pale); }
+.cal-dia.selecionado { background: var(--gold) !important; color: var(--navy) !important; font-weight: 700; }
+.cal-dia.desabilitado { color: var(--gray-300); }
+.horarios-grid { display: flex; flex-wrap: wrap; gap: .75rem; }
+.horario-btn { padding: .6rem 1.25rem; border: 1px solid var(--gray-300); border-radius: var(--radius); background: #fff; color: var(--navy); font-size: .9rem; cursor: pointer; transition: all .2s; }
+.horario-btn:hover { border-color: var(--gold); background: var(--gold-pale); }
+.horario-btn.selecionado { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 700; }
+.horario-btn.ocupado { background: var(--gray-100); color: var(--gray-300); cursor: not-allowed; text-decoration: line-through; }
+.ag-resumo { background: var(--gold-pale); border: 1px solid #E5D499; border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1.5rem; }
+.resumo-item { display: flex; justify-content: space-between; padding: .4rem 0; font-size: .9rem; border-bottom: 1px solid #E5D499; }
+.resumo-item:last-child { border-bottom: none; }
+.resumo-item span { color: var(--gray-500); }
+.resumo-item strong { color: var(--navy); }
+
 /* ── Retificação Grid ─────────────────────────────────── */
 .retif-grid { display: flex; flex-direction: column; gap: 1rem; }
 .retif-card { background: #fff; border: 1px solid var(--gray-300); border-radius: var(--radius); padding: 1.25rem 1.5rem; display: flex; align-items: center; gap: 1.25rem; transition: border-color .2s, box-shadow .2s; text-decoration: none; }

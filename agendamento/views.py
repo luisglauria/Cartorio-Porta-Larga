@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.utils import timezone
-from .models import Agendamento, Servico
+from django.http import JsonResponse
+from .models import Agendamento, Servico, Atendente, HorarioAtendente
 from .forms import AgendamentoForm
 from .utils import enviar_email_confirmacao, enviar_email_cancelamento
 from django.views.decorators.csrf import csrf_exempt
@@ -10,8 +11,28 @@ import requests as req
 
 # ── Páginas públicas ──────────────────────────────────────────────────────────
 def home(request):
-    servicos = Servico.objects.filter(ativo=True).exclude(nome__icontains='retificação — ')
+    nomes_home = [
+        'Nascimento',
+        'Casamento Civil',
+        'Óbitos',
+        '2º Vias DE CERTIDÕES',
+        'Reconhecimento de firmas',
+        'Autenticação de documentos',
+        'Apostila de Haia',
+        'Retificações',
+        'Restaurações',
+        'Reconhecimento de Paternidade',
+        'Comunicado de venda de veículo - Detran',
+    ]
+    servicos = []
+    for nome in nomes_home:
+        try:
+            servico = Servico.objects.get(nome__iexact=nome, ativo=True)
+            servicos.append(servico)
+        except Servico.DoesNotExist:
+            pass
     return render(request, 'base/home.html', {'servicos': servicos})
+
 
 @csrf_exempt
 def verificacao(request):
@@ -35,6 +56,7 @@ def verificacao(request):
         'site_key': settings.TURNSTILE_SITE_KEY
     })
 
+
 def sobre(request):
     return render(request, 'base/sobre.html')
 
@@ -43,25 +65,74 @@ def servicos(request):
     servicos = Servico.objects.filter(ativo=True).exclude(nome__icontains='retificação — ')
     return render(request, 'base/servicos.html', {'servicos': servicos})
 
+
+def institucional(request):
+    return render(request, 'base/institucional.html')
+
+
 def contato(request):
     return render(request, 'base/contato.html')
 
+
 def retificacao(request):
-    from .models import Servico
     servicos = Servico.objects.filter(nome__icontains='retificação', ativo=False).order_by('ordem')
     return render(request, 'agendamento/retificacao.html', {'servicos': servicos})
+
 
 def modelos_requerimentos(request):
     return render(request, 'base/modelos_requerimentos.html')
 
+
 def sites_uteis(request):
     return render(request, 'base/sites_uteis.html')
+
 
 def transparencia(request):
     return render(request, 'base/transparencia.html')
 
+
 def politica_privacidade(request):
     return render(request, 'base/politica_privacidade.html')
+
+
+def horarios_disponiveis(request):
+    atendente_id = request.GET.get('atendente_id')
+    data_str = request.GET.get('data')
+
+    if not atendente_id or not data_str:
+        return JsonResponse({'horarios': []})
+
+    try:
+        from datetime import date
+        data = date.fromisoformat(data_str)
+        dia_semana = data.weekday()
+
+        horarios_config = HorarioAtendente.objects.filter(
+            atendente_id=atendente_id,
+            dia_semana=dia_semana
+        ).values_list('hora', flat=True)
+
+        horarios_ocupados = Agendamento.objects.filter(
+            atendente_id=atendente_id,
+            data=data,
+            status__in=['pendente', 'confirmado']
+        ).values_list('hora', flat=True)
+
+        horarios_ocupados_str = [h.strftime('%H:%M') for h in horarios_ocupados]
+
+        horarios = []
+        for hora in horarios_config:
+            hora_str = hora.strftime('%H:%M')
+            horarios.append({
+                'hora': hora_str,
+                'disponivel': hora_str not in horarios_ocupados_str
+            })
+
+        return JsonResponse({'horarios': horarios})
+
+    except Exception as e:
+        return JsonResponse({'horarios': [], 'erro': str(e)})
+
 
 # ── Agendamento ───────────────────────────────────────────────────────────────
 
@@ -70,11 +141,12 @@ def novo_agendamento(request):
     servico_id = request.GET.get('servico')
     servico_selecionado = None
     if servico_id:
-        from .models import Servico
         try:
             servico_selecionado = Servico.objects.get(pk=servico_id, ativo=True)
         except Servico.DoesNotExist:
             pass
+
+    atendentes = Atendente.objects.filter(ativo=True)
 
     if request.method == 'POST':
         form = AgendamentoForm(request.POST)
@@ -97,6 +169,7 @@ def novo_agendamento(request):
     return render(request, 'agendamento/novo.html', {
         'form': form,
         'servico_selecionado': servico_selecionado,
+        'atendentes': atendentes,
     })
 
 

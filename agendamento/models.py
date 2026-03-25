@@ -3,6 +3,44 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 
+class Atendente(models.Model):
+    DIAS_SEMANA = [
+        (0, 'Segunda-feira'), (1, 'Terça-feira'), (2, 'Quarta-feira'),
+        (3, 'Quinta-feira'), (4, 'Sexta-feira'),
+    ]
+
+    nome = models.CharField('Nome', max_length=100)
+    ativo = models.BooleanField('Ativo', default=True)
+
+    class Meta:
+        verbose_name = 'Atendente'
+        verbose_name_plural = 'Atendentes'
+        ordering = ['nome']
+
+    def __str__(self):
+        return self.nome
+
+
+class HorarioAtendente(models.Model):
+    DIAS_SEMANA = [
+        (0, 'Segunda-feira'), (1, 'Terça-feira'), (2, 'Quarta-feira'),
+        (3, 'Quinta-feira'), (4, 'Sexta-feira'),
+    ]
+
+    atendente = models.ForeignKey(Atendente, on_delete=models.CASCADE, related_name='horarios')
+    dia_semana = models.IntegerField('Dia da semana', choices=DIAS_SEMANA)
+    hora = models.TimeField('Hora')
+
+    class Meta:
+        verbose_name = 'Horário da Atendente'
+        verbose_name_plural = 'Horários das Atendentes'
+        ordering = ['dia_semana', 'hora']
+        unique_together = ['atendente', 'dia_semana', 'hora']
+
+    def __str__(self):
+        return f'{self.atendente.nome} — {self.get_dia_semana_display()} às {self.hora.strftime("%H:%M")}'
+
+
 class Servico(models.Model):
     nome = models.CharField('Nome do serviço', max_length=100)
     descricao = models.TextField('Descrição', blank=True)
@@ -20,7 +58,6 @@ class Servico(models.Model):
 
     def __str__(self):
         return self.nome
-    
 
 
 class HorarioDisponivel(models.Model):
@@ -50,15 +87,9 @@ class Agendamento(models.Model):
         ('concluido', 'Concluído'),
     ]
 
-    ATENDENTE_CHOICES = [
-        ('', 'Selecione...'),
-        ('maria_clara', 'Maria Clara'),
-        ('ketily', 'Ketily'),
-    ]
-
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, related_name='agendamentos', verbose_name='Cliente')
     servico = models.ForeignKey(Servico, on_delete=models.PROTECT, verbose_name='Serviço')
-    atendente = models.CharField('Atendente', max_length=20, choices=ATENDENTE_CHOICES, default='')
+    atendente = models.ForeignKey(Atendente, on_delete=models.PROTECT, verbose_name='Atendente', null=True, blank=True)
     data = models.DateField('Data')
     hora = models.TimeField('Hora')
     status = models.CharField('Status', max_length=20, choices=STATUS_CHOICES, default='pendente')

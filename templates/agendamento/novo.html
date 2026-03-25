@@ -2,10 +2,11 @@
 {% block title %}Novo Agendamento — Cartório Porta Larga{% endblock %}
 {% block content %}
 <div class="page-header">
-  <div class="container"><h1>Novo agendamento</h1><p>Preencha os dados para marcar seu horário</p></div>
+  <div class="container"><h1>Novo agendamento</h1><p>Escolha a atendente, data e horário</p></div>
 </div>
 <section class="section-block">
-  <div class="container" style="max-width:680px">
+  <div class="container" style="max-width:700px">
+
     {% if not user.is_authenticated %}
     <div class="alert alert-info">
       <strong>Para agendar, faça login ou crie sua conta.</strong><br>
@@ -25,105 +26,220 @@
       </div>
       <div class="servico-info-confirm">
         <label class="confirm-label">
-          <input type="checkbox" id="confirmLeitura" onchange="toggleForm()">
+          <input type="checkbox" id="confirmLeitura" onchange="toggleAgendamento()">
           <span>Li e compreendi todas as informações acima</span>
         </label>
       </div>
     </div>
+    <div id="agendamentoBox" style="display:none; margin-top:2rem;">
+    {% else %}
+    <div id="agendamentoBox">
+    {% endif %}
 
-    <div id="formAgendamento" style="display:none; margin-top:2rem;">
-
-      {% if "casamento" in servico_selecionado.nome|lower or "união estável" in servico_selecionado.nome|lower %}
-      <div class="passos-card">
+      {% if servico_selecionado and "casamento" in servico_selecionado.nome|lower %}
+      <div class="passos-card" style="margin-bottom:2rem">
         <div class="passos-header">
           <h3>{{ servico_selecionado.nome }}</h3>
           <p>Por onde começo?</p>
         </div>
         <div class="passos-list">
-          <div class="passo-item">
-            <div class="passo-num">01</div>
-            <div class="passo-text">Ter em mãos toda a documentação necessária para agendar o dia de comparecer ao cartório para dar entrada no processo de <strong>HABILITAÇÃO DE CASAMENTO</strong>.</div>
-          </div>
-          <div class="passo-item">
-            <div class="passo-num">02</div>
-            <div class="passo-text">Agendar conosco o dia para comparecer ao Cartório, junto com as 2 testemunhas.</div>
-          </div>
-          <div class="passo-item">
-            <div class="passo-num">03</div>
-            <div class="passo-text">No dia agendado, o casal deve comparecer ao Cartório, trazendo consigo toda a documentação exigida. Daremos início ao processo de Habilitação de Casamento Civil e agendaremos a data para o retorno, a fim de retirar a Certidão de Habilitação, em até 7 dias corridos.</div>
-          </div>
-          <div class="passo-item">
-            <div class="passo-num">04</div>
-            <div class="passo-text">Um dos nubentes deverá comparecer ao Cartório, no dia agendado, para retirar a Certidão de Habilitação, que será entregue à Igreja Celebrante.</div>
-          </div>
-          <div class="passo-item">
-            <div class="passo-num">05</div>
-            <div class="passo-text">Celebração da Cerimônia Religiosa. Nesse momento será entregue ao casal, pela Igreja Celebrante, o <strong>TERMO DE CASAMENTO RELIGIOSO</strong>, onde ambos assinarão juntamente com as testemunhas e Celebrante.</div>
-          </div>
-          <div class="passo-item">
-            <div class="passo-num">06</div>
-            <div class="passo-text">Dentro de um período de até 60 dias corridos após a realização da Cerimônia Religiosa, um dos nubentes deverá comparecer ao Cartório, trazendo consigo o <strong>TERMO DE CASAMENTO RELIGIOSO</strong>.</div>
-          </div>
-          <div class="passo-item">
-            <div class="passo-num">07</div>
-            <div class="passo-text">Emissão da Certidão de Casamento.</div>
-          </div>
+          <div class="passo-item"><div class="passo-num">01</div><div class="passo-text">Ter em mãos toda a documentação necessária para dar entrada no processo de <strong>HABILITAÇÃO DE CASAMENTO</strong>.</div></div>
+          <div class="passo-item"><div class="passo-num">02</div><div class="passo-text">Agendar conosco o dia para comparecer ao Cartório, junto com as 2 testemunhas.</div></div>
+          <div class="passo-item"><div class="passo-num">03</div><div class="passo-text">No dia agendado, o casal deve comparecer ao Cartório trazendo toda a documentação exigida. Daremos início ao processo de Habilitação e agendaremos o retorno em até 7 dias corridos.</div></div>
+          <div class="passo-item"><div class="passo-num">04</div><div class="passo-text">Um dos nubentes retira a Certidão de Habilitação, que será entregue à Igreja Celebrante.</div></div>
+          <div class="passo-item"><div class="passo-num">05</div><div class="passo-text">Celebração da Cerimônia. O casal recebe o <strong>TERMO DE CASAMENTO RELIGIOSO</strong> para assinar.</div></div>
+          <div class="passo-item"><div class="passo-num">06</div><div class="passo-text">Dentro de 60 dias, um dos nubentes traz o <strong>TERMO DE CASAMENTO RELIGIOSO</strong> ao Cartório.</div></div>
+          <div class="passo-item"><div class="passo-num">07</div><div class="passo-text">Emissão da Certidão de Casamento.</div></div>
         </div>
       </div>
       {% endif %}
 
-      <form method="post" class="form-card">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {% if field.help_text %}<div class="form-help">{{ field.help_text }}</div>{% endif %}
-          {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+      <!-- PASSO 1: Escolher atendente -->
+      <div class="ag-step" id="step1">
+        <h3 class="ag-step-title">1. Escolha a atendente</h3>
+        <div class="atendentes-grid">
+          {% for atendente in atendentes %}
+          <div class="atendente-card" onclick="selecionarAtendente({{ atendente.id }}, '{{ atendente.nome }}')" id="atendente-{{ atendente.id }}">
+            <div class="atendente-avatar">{{ atendente.nome|first }}</div>
+            <div class="atendente-nome">{{ atendente.nome }}</div>
+          </div>
+          {% endfor %}
         </div>
-        {% endfor %}
-        {% if form.non_field_errors %}
-        <div class="form-error">{{ form.non_field_errors }}</div>
-        {% endif %}
-        <button type="submit" class="btn btn-navy btn-block">Confirmar agendamento</button>
-      </form>
+      </div>
 
-    </div>
-
-    {% else %}
-    <div id="formAgendamento">
-      <form method="post" class="form-card">
-        {% csrf_token %}
-        {% for field in form %}
-        <div class="form-group">
-          <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-          {{ field }}
-          {% if field.help_text %}<div class="form-help">{{ field.help_text }}</div>{% endif %}
-          {% for error in field.errors %}<div class="form-error">{{ error }}</div>{% endfor %}
+      <!-- PASSO 2: Calendário -->
+      <div class="ag-step" id="step2" style="display:none">
+        <h3 class="ag-step-title">2. Escolha a data</h3>
+        <div class="calendario-wrapper">
+          <div class="calendario-header">
+            <button type="button" onclick="mudarMes(-1)">&#8592;</button>
+            <span id="mesAno"></span>
+            <button type="button" onclick="mudarMes(1)">&#8594;</button>
+          </div>
+          <div class="calendario-dias-semana">
+            <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+          </div>
+          <div class="calendario-grid" id="calendarioGrid"></div>
         </div>
-        {% endfor %}
-        {% if form.non_field_errors %}
-        <div class="form-error">{{ form.non_field_errors }}</div>
-        {% endif %}
-        <button type="submit" class="btn btn-navy btn-block">Confirmar agendamento</button>
-      </form>
+      </div>
+
+      <!-- PASSO 3: Horários -->
+      <div class="ag-step" id="step3" style="display:none">
+        <h3 class="ag-step-title">3. Escolha o horário</h3>
+        <div class="horarios-grid" id="horariosGrid"></div>
+      </div>
+
+      <!-- PASSO 4: Formulário final -->
+      <div class="ag-step" id="step4" style="display:none">
+        <h3 class="ag-step-title">4. Complete o agendamento</h3>
+        <div class="ag-resumo" id="agResumo"></div>
+        <form method="post" class="form-card" id="formAgendamento">
+          {% csrf_token %}
+          <input type="hidden" name="atendente" id="inputAtendente">
+          <input type="hidden" name="data" id="inputData">
+          <input type="hidden" name="hora" id="inputHora">
+          <div class="form-group">
+            <label>Serviço</label>
+            <select name="servico" class="form-control" required>
+              {% if servico_selecionado %}
+              <option value="{{ servico_selecionado.pk }}" selected>{{ servico_selecionado.nome }}</option>
+              {% else %}
+              <option value="">Selecione...</option>
+              {% for s in form.servico.field.queryset %}
+              <option value="{{ s.pk }}">{{ s.nome }}</option>
+              {% endfor %}
+              {% endif %}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Observações (opcional)</label>
+            <textarea name="observacoes" class="form-control" rows="3" placeholder="Descreva sua demanda..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-navy btn-block">Confirmar agendamento</button>
+        </form>
+      </div>
+
     </div>
     {% endif %}
-
-  {% endif %}
   </div>
 </section>
 
 <script>
-function toggleForm() {
-  const checkbox = document.getElementById('confirmLeitura');
-  const form = document.getElementById('formAgendamento');
-  if (checkbox.checked) {
-    form.style.display = 'block';
-    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  } else {
-    form.style.display = 'none';
+let atendenteId = null;
+let atendenteNome = '';
+let dataSelecionada = null;
+let horaSelecionada = null;
+let mesAtual = new Date().getMonth();
+let anoAtual = new Date().getFullYear();
+
+function toggleAgendamento() {
+  const cb = document.getElementById('confirmLeitura');
+  const box = document.getElementById('agendamentoBox');
+  box.style.display = cb.checked ? 'block' : 'none';
+  if (cb.checked) box.scrollIntoView({behavior: 'smooth'});
+}
+
+function selecionarAtendente(id, nome) {
+  atendenteId = id;
+  atendenteNome = nome;
+  document.querySelectorAll('.atendente-card').forEach(c => c.classList.remove('selecionado'));
+  document.getElementById('atendente-' + id).classList.add('selecionado');
+  document.getElementById('step2').style.display = 'block';
+  document.getElementById('step2').scrollIntoView({behavior: 'smooth'});
+  renderCalendario();
+}
+
+function renderCalendario() {
+  const meses = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+  document.getElementById('mesAno').textContent = meses[mesAtual] + ' ' + anoAtual;
+
+  const grid = document.getElementById('calendarioGrid');
+  grid.innerHTML = '';
+
+  const hoje = new Date();
+  hoje.setHours(0,0,0,0);
+  const primeiroDia = new Date(anoAtual, mesAtual, 1).getDay();
+  const diasNoMes = new Date(anoAtual, mesAtual + 1, 0).getDate();
+
+  for (let i = 0; i < primeiroDia; i++) {
+    grid.appendChild(document.createElement('div'));
   }
+
+  for (let d = 1; d <= diasNoMes; d++) {
+    const dia = document.createElement('div');
+    dia.textContent = d;
+    const data = new Date(anoAtual, mesAtual, d);
+    const diaSemana = data.getDay();
+
+    if (data < hoje || diaSemana === 0 || diaSemana === 6) {
+      dia.className = 'cal-dia desabilitado';
+    } else {
+      dia.className = 'cal-dia disponivel';
+      dia.onclick = () => selecionarData(data, dia);
+    }
+    grid.appendChild(dia);
+  }
+}
+
+function mudarMes(delta) {
+  mesAtual += delta;
+  if (mesAtual > 11) { mesAtual = 0; anoAtual++; }
+  if (mesAtual < 0) { mesAtual = 11; anoAtual--; }
+  renderCalendario();
+}
+
+async function selecionarData(data, el) {
+  dataSelecionada = data;
+  document.querySelectorAll('.cal-dia').forEach(d => d.classList.remove('selecionado'));
+  el.classList.add('selecionado');
+
+  const dataStr = data.toISOString().split('T')[0];
+  const resp = await fetch(`/agendamento/horarios-disponiveis/?atendente_id=${atendenteId}&data=${dataStr}`);
+  const json = await resp.json();
+
+  const grid = document.getElementById('horariosGrid');
+  grid.innerHTML = '';
+
+  if (json.horarios.length === 0) {
+    grid.innerHTML = '<p style="color:var(--gray-500)">Nenhum horário disponível neste dia.</p>';
+  } else {
+    json.horarios.forEach(h => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = h.hora;
+      btn.className = 'horario-btn' + (h.disponivel ? '' : ' ocupado');
+      if (h.disponivel) {
+        btn.onclick = () => selecionarHorario(h.hora, btn);
+      } else {
+        btn.disabled = true;
+        btn.title = 'Horário ocupado';
+      }
+      grid.appendChild(btn);
+    });
+  }
+
+  document.getElementById('step3').style.display = 'block';
+  document.getElementById('step3').scrollIntoView({behavior: 'smooth'});
+}
+
+function selecionarHorario(hora, el) {
+  horaSelecionada = hora;
+  document.querySelectorAll('.horario-btn').forEach(b => b.classList.remove('selecionado'));
+  el.classList.add('selecionado');
+
+  const dataFormatada = dataSelecionada.toLocaleDateString('pt-BR');
+  document.getElementById('agResumo').innerHTML = `
+    <div class="resumo-item"><span>Atendente</span><strong>${atendenteNome}</strong></div>
+    <div class="resumo-item"><span>Data</span><strong>${dataFormatada}</strong></div>
+    <div class="resumo-item"><span>Horário</span><strong>${hora}</strong></div>
+  `;
+
+  document.getElementById('inputAtendente').value = atendenteId;
+  document.getElementById('inputData').value = dataSelecionada.toISOString().split('T')[0];
+  document.getElementById('inputHora').value = hora;
+
+  document.getElementById('step4').style.display = 'block';
+  document.getElementById('step4').scrollIntoView({behavior: 'smooth'});
 }
 </script>
 {% endblock %}

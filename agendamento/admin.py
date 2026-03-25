@@ -1,6 +1,19 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Agendamento, Servico, HorarioDisponivel
+from .models import Agendamento, Servico, HorarioDisponivel, Atendente, HorarioAtendente
+
+
+class HorarioAtendenteInline(admin.TabularInline):
+    model = HorarioAtendente
+    extra = 1
+    fields = ['dia_semana', 'hora']
+
+
+@admin.register(Atendente)
+class AtendenteAdmin(admin.ModelAdmin):
+    list_display = ['nome', 'ativo']
+    list_editable = ['ativo']
+    inlines = [HorarioAtendenteInline]
 
 
 @admin.register(Servico)
