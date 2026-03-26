@@ -97,6 +97,7 @@ class Agendamento(models.Model):
     criado_em = models.DateTimeField('Criado em', auto_now_add=True)
     atualizado_em = models.DateTimeField('Atualizado em', auto_now=True)
     email_confirmacao_enviado = models.BooleanField('E-mail enviado', default=False)
+    lembrete_enviado = models.BooleanField('Lembrete enviado', default=False)
 
     class Meta:
         verbose_name = 'Agendamento'
